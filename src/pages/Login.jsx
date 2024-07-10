@@ -1,32 +1,40 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import '@picocss/pico/css/pico.min.css';
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const [showPassword, setShowPassword] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
-  const handleLogin = async(e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    let res = await axios.post("http://localhost:5000/users/login",{
-        
-          email: email,
-          password: password
-        
-    });
-    // let res = await axios.get("http://localhost:5000/users/getalluser");
-    console.log(res);
+    try {
+      let res = await axios.post("http://localhost:5000/users/login", {
+        email: email,
+        password: password
+      });
+      if (res.data.success) {
+        // Handle successful login here
+        console.log("Login successful");
+      } else {
+        setErrorMessage(res.data.message);
+      }
+    } catch (error) {
+      setErrorMessage("Login failed. Please check your credentials and try again.");
+      console.error(error);
+    }
   };
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh'}}>
-      <div style={{  padding: '2rem', borderRadius: '8px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', maxWidth: '400px', width: '100%' }}>
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+      <div style={{ padding: '2rem', borderRadius: '8px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', maxWidth: '400px', width: '100%' }}>
         <header className="header">
           <h1>Login</h1>
         </header>
@@ -40,7 +48,8 @@ const Login = () => {
                 name="email-username"
                 placeholder="Enter your email or username"
                 required
-                onChange={(e)=>{setEmail(e.target.value)}}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             <div className="form-group">
@@ -53,7 +62,8 @@ const Login = () => {
                   placeholder="Enter your password"
                   required
                   style={{ flex: 1 }}
-                  onChange={(e)=>{setPassword(e.target.value)}}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
                 <button
                   type="button"
@@ -64,6 +74,7 @@ const Login = () => {
                 </button>
               </div>
             </div>
+            {errorMessage && <div className="error-message" style={{ color: 'red', marginBottom: '1rem' }}>{errorMessage}</div>}
             <button type="submit" className="primary">
               Login
             </button>

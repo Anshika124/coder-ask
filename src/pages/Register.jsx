@@ -7,12 +7,14 @@ import { Link } from 'react-router-dom';
 const Registration = () => {
     const [fullname, setFullname] = useState("");
     const [username, setUsername] = useState("");
-    const [email, setEmail] = useState(""); 
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
 
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    const [errorMessageEmail, setErrorMessageEmail] = useState(false);
+    const [errorMessageUsername, setErrorMessageUsername] = useState(false);
 
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
@@ -22,15 +24,30 @@ const Registration = () => {
         setShowConfirmPassword(!showConfirmPassword);
     };
 
-    const handleRegister = async(e) => {
+    const handleRegister = async (e) => {
         e.preventDefault();
-        let res = await axios.post("http://localhost:5000/users/register",{
+
+        let res = await axios.post("http://localhost:5000/users/register", {
             fullName: fullname,
             userName: username,
-            email:email,
+            email: email,
             password: password
         })
+
+        if (res.data.value === "email") {
+            setErrorMessageEmail(res.data.message);
+        }
+        else {
+            setErrorMessageEmail(false);
+        }
+        if (res.data.value === "username") {
+            setErrorMessageUsername(res.data.message);
+        }
+        else {
+            setErrorMessageUsername(false);
+        }
         console.log(res);
+
     };
 
     return (
@@ -49,7 +66,7 @@ const Registration = () => {
                                 name="fullname"
                                 placeholder="Enter your full name"
                                 required
-                                onChange={(e)=>{setFullname(e.target.value)}}
+                                onChange={(e) => { setFullname(e.target.value) }}
                             />
                         </div>
                         <div className="form-group">
@@ -60,9 +77,10 @@ const Registration = () => {
                                 name="username"
                                 placeholder="Enter your username"
                                 required
-                                onChange={(e)=>{setUsername(e.target.value)}}
+                                onChange={(e) => { setUsername(e.target.value) }}
                             />
                         </div>
+                        {errorMessageUsername && <div className="error-message" style={{ color: 'red', marginBottom: '1rem' }}>{errorMessageUsername}</div>}
                         <div className="form-group">
                             <label htmlFor="email">Email</label>
                             <input
@@ -71,9 +89,11 @@ const Registration = () => {
                                 name="email"
                                 placeholder="Enter your email"
                                 required
-                                onChange={(e)=>{setEmail(e.target.value)}}
+                                onChange={(e) => { setEmail(e.target.value) }}
                             />
                         </div>
+                        {errorMessageEmail && <div className="error-message" style={{ color: 'red', marginBottom: '1rem' }}>{errorMessageEmail}</div>}
+
                         <div className="form-group">
                             <label htmlFor="password">Password</label>
                             <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -84,7 +104,7 @@ const Registration = () => {
                                     placeholder="Enter your password"
                                     required
                                     style={{ flex: 1 }}
-                                    onChange={(e)=>{setPassword(e.target.value)}}
+                                    onChange={(e) => { setPassword(e.target.value) }}
                                 />
                                 <button
                                     type="button"
@@ -105,7 +125,7 @@ const Registration = () => {
                                     placeholder="Confirm your password"
                                     required
                                     style={{ flex: 1 }}
-                                    onChange={(e)=>{setConfirmPassword(e.target.value)}}
+                                    onChange={(e) => { setConfirmPassword(e.target.value) }}
                                 />
                                 <button
                                     type="button"
