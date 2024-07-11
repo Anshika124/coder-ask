@@ -1,13 +1,18 @@
 import axios from 'axios';
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import '@picocss/pico/css/pico.min.css';
+import ReactLoading from 'react-loading'
+
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const Navigate = useNavigate();
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -15,14 +20,17 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       let res = await axios.post("http://localhost:5000/users/login", {
         email: email,
         password: password
       });
+      setLoading(false);
       if (res.data.success) {
         // Handle successful login here
-        console.log("Login successful");
+        Navigate('/')
+        
       } else {
         setErrorMessage(res.data.message);
       }
@@ -34,7 +42,10 @@ const Login = () => {
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-      <div style={{ padding: '2rem', borderRadius: '8px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', maxWidth: '400px', width: '100%' }}>
+      {
+        loading ?
+        <ReactLoading type={'spin'} color={'#ffffff'} height={'15%'} width={'15%'} />   :
+        <div style={{ padding: '2rem', borderRadius: '8px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', maxWidth: '400px', width: '100%' }}>
         <header className="header">
           <h1>Login</h1>
         </header>
@@ -84,6 +95,7 @@ const Login = () => {
           </p>
         </main>
       </div>
+      }
     </div>
   );
 };
