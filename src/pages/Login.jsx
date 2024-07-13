@@ -1,11 +1,13 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useState, useEffect} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '@picocss/pico/css/pico.min.css';
 import ReactLoading from 'react-loading'
+import { localDBUrl } from '../controller/URLManager';
 
 
-const Login = () => {
+const Login = ({setIsLoggedIn}) => {
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -22,15 +24,16 @@ const Login = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      let res = await axios.post("http://localhost:5000/users/login", {
+      let res = await axios.post(localDBUrl+"/users/login", {
         email: email,
         password: password
       });
       setLoading(false);
       if (res.data.success) {
         // Handle successful login here
+        setIsLoggedIn(true);
+        localStorage.setItem("userData", JSON.stringify(res.data.value));
         Navigate('/')
-        
       } else {
         setErrorMessage(res.data.message);
       }
@@ -39,6 +42,14 @@ const Login = () => {
       console.error(error);
     }
   };
+
+  useEffect(()=>{
+    if (localStorage.getItem("userData") && localStorage.getItem("userData") !== '{}')
+    {
+      setIsLoggedIn(true);
+      Navigate('/');
+    }
+  }, [])
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>

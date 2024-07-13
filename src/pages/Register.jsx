@@ -1,12 +1,12 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useState, useEffect} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import ReactLoading from 'react-loading';
 import { isDebug } from '../controller/ProjectData';
+import { localDBUrl } from '../controller/URLManager';
 
 
-
-const Registration = () => {
+const Registration = ({setIsLoggedIn}) => {
     const [fullname, setFullname] = useState("");
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
@@ -19,7 +19,7 @@ const Registration = () => {
     const [errorMessageUsername, setErrorMessageUsername] = useState("");
     const [loading, setLoading] = useState(false);
 
-    const navigate = useNavigate();
+    const Navigate = useNavigate();
 
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
@@ -33,7 +33,7 @@ const Registration = () => {
         e.preventDefault();
         setLoading(true);
 
-        let res = await axios.post("http://localhost:5000/users/register", {
+        let res = await axios.post(localDBUrl + "/users/register", {
             fullName: fullname,
             userName: username,
             email: email,
@@ -41,7 +41,10 @@ const Registration = () => {
         })
         setLoading(false);
         if (res.data.success) {
-            navigate('/');
+
+            setIsLoggedIn(true);
+            localStorage.setItem("userData", JSON.stringify(res.data.value));
+            Navigate('/')
         }
         else {
 
@@ -63,6 +66,14 @@ const Registration = () => {
         }
 
     };
+
+    useEffect(()=>{
+        if (localStorage.getItem("userData") && localStorage.getItem("userData") !== '{}')
+        {
+          setIsLoggedIn(true);
+          Navigate('/');
+        }
+      }, [])
 
     return (
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
