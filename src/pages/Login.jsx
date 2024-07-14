@@ -2,8 +2,8 @@ import axios from 'axios';
 import React, { useState, useEffect} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '@picocss/pico/css/pico.min.css';
-import ReactLoading from 'react-loading'
 import { localDBUrl } from '../controller/URLManager';
+import Loading from '../components/Loading';
 
 
 const Login = ({setIsLoggedIn}) => {
@@ -51,11 +51,14 @@ const Login = ({setIsLoggedIn}) => {
     }
   }, [])
 
+  if (loading ) {
+    return <Loading/>
+  }
+
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
       {
-        loading ?
-        <ReactLoading type={'spin'} color={'#ffffff'} height={'15%'} width={'15%'} />   :
+        
         <div style={{ padding: '2rem', borderRadius: '8px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', maxWidth: '400px', width: '100%' }}>
         <header className="header">
           <h1>Login</h1>

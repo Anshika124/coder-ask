@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import '@picocss/pico/css/pico.min.css';
 import { logoUrl } from '../controller/URLManager';
 const Header = ({ isLoggedIn }) => {
-  console.log(isLoggedIn);
+  // console.log(isLoggedIn);
   return (
     <header style={{ display: 'flex', alignItems: 'center', padding: '1rem 2rem', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
       <div style={{ flex: 1 }}>

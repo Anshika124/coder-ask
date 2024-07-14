@@ -8,7 +8,7 @@ function SignOut({setIsLoggedIn}) {
     useEffect(() => {
         localStorage.removeItem('userData');
         setIsLoggedIn(false);
-        Navigate('/');
+        Navigate('/login');
     },[])
   return (
     <div></div>

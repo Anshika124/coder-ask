@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useState, useEffect} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import ReactLoading from 'react-loading';
-import { isDebug } from '../controller/ProjectData';
+import { isDebug, generateUser } from '../controller/ProjectData';
 import { localDBUrl } from '../controller/URLManager';
 
 
@@ -21,6 +21,15 @@ const Registration = ({setIsLoggedIn}) => {
 
     const Navigate = useNavigate();
 
+    function setTestUser(){
+        let userData = generateUser();
+        setFullname(userData.name);
+        setUsername(userData.username);
+        setEmail(userData.email);
+        setPassword(userData.password);
+        setConfirmPassword(userData.password)
+    }
+
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
     };
@@ -28,6 +37,7 @@ const Registration = ({setIsLoggedIn}) => {
     const toggleConfirmPasswordVisibility = () => {
         setShowConfirmPassword(!showConfirmPassword);
     };
+
 
     const handleRegister = async (e) => {
         e.preventDefault();
@@ -76,7 +86,10 @@ const Registration = ({setIsLoggedIn}) => {
       }, [])
 
     return (
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+        <>
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+            <button 
+           type="button" onClick={()=>{setTestUser()}}>testUser</button>
             {loading ? <ReactLoading type={'spin'} color={'#ffffff'} height={'15%'} width={'15%'} /> : <div style={{ padding: '2rem', borderRadius: '8px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', maxWidth: '400px', width: '100%' }}>
                 <header className="header">
                     <h1>Register</h1>
@@ -176,6 +189,7 @@ const Registration = ({setIsLoggedIn}) => {
                 </main>
             </div>}
         </div>
+        </>
     );
 };
 
