@@ -3,7 +3,7 @@ import axios from 'axios';
 import '@picocss/pico/css/pico.min.css';
 import { localDBUrl } from '../controller/URLManager';
 
-const EditProfile = ({UserProfile, setLoading}) => {
+const EditProfile = ({UserProfile, setProfileData}) => {
   const [profile, setProfile] = useState(UserProfile);
   const [message, setMessage] = useState('');
 
@@ -14,6 +14,18 @@ const EditProfile = ({UserProfile, setLoading}) => {
     setProfile((prevProfile) => ({
       ...prevProfile,
       [name]: value,
+    }));
+  };
+
+  const handleChangeFullnameAndUsername = (e) => {
+    
+    const { name, value } = e.target;
+    setProfile((prevProfile) => ({
+      ...prevProfile,
+      "userId" : {
+        ...prevProfile.userId,
+        [name]: value
+      },
     }));
   };
 
@@ -30,17 +42,16 @@ const EditProfile = ({UserProfile, setLoading}) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(profile)
-    setLoading(true);
+    setProfileData(null);
     try {
       const response = await axios.put(localDBUrl+'/users/editprofile', profile); 
-      console.log(response)
+      setProfileData(response.data.value);
       setMessage('Profile updated successfully!');
     } catch (error) {
       console.error('Error updating profile:', error);
       setMessage('Failed to update profile.');
     }
-    setLoading(false);
+    
   };
 
   return (
@@ -57,7 +68,7 @@ const EditProfile = ({UserProfile, setLoading}) => {
               id="fullName"
               name="fullName"
               value={profile.userId.fullName}
-              onChange={handleChange}
+              onChange={handleChangeFullnameAndUsername}
               required
             />
           </div>
@@ -68,7 +79,7 @@ const EditProfile = ({UserProfile, setLoading}) => {
               id="userName"
               name="userName"
               value={profile.userId.userName}
-              onChange={handleChange}
+              onChange={handleChangeFullnameAndUsername}
               required
             />
           </div>

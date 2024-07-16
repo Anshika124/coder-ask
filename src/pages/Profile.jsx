@@ -18,7 +18,7 @@ const socialMediaIcons = {
 
 const Profile = () => {
   const [profile, setProfile] = useState(null);
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -26,22 +26,21 @@ const Profile = () => {
         const response = await axios.post(localDBUrl+'/users/getuser',{
             userId: JSON.parse(localStorage.getItem("userData"))._id
         }); 
-        console.log(response)
+        // console.log(response)
         setProfile(response.data);
       } catch (error) {
         console.error('Error fetching profile data:', error);
       }
     };
 
-
-
     fetchProfile();
-  }, [profile]);
+  }, []);
 
-
-  if (!profile || loading) {
+  
+  if (!profile ) {
     return <Loading />;
   }
+  
 
   return (
     <div className="container">
@@ -74,7 +73,7 @@ const Profile = () => {
         <div className="column">
           <div className="profile-content">
             <h3>Edit Profile</h3>
-            <EditProfile UserProfile={profile} setLoading={setLoading}/>            
+            <EditProfile UserProfile={profile}  setProfileData={setProfile}/>            
           </div>
         </div>
       </div>
