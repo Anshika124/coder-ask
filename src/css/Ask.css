@@ -1,0 +1,25 @@
+.askMainContainer {
+    display: flex;
+    justify-content: center;
+    
+    height: 100vh;
+    width: 94vw;
+}
+
+.askContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  .askMainContainer .askContainer .ql-container {
+    width: 100%;
+  }
+  
+  .editor {
+    width: 500px;
+    height: 300px;
+  }
+  
