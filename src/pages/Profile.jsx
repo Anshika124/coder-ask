@@ -44,7 +44,9 @@ const Profile = () => {
 
   return (
     <div className="container">
-      <div className="grid">
+      <div className="grid" style={{
+        gridTemplateColumns: "25% 75%",
+      }}>
         <div className="column" style={{ maxWidth: '250px' }}>
           <div className="profile-sidebar">
             <img 
@@ -72,7 +74,6 @@ const Profile = () => {
         </div>
         <div className="column">
           <div className="profile-content">
-            <h3>Edit Profile</h3>
             <EditProfile UserProfile={profile}  setProfileData={setProfile}/>            
           </div>
         </div>
