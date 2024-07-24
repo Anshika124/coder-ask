@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 import '@picocss/pico/css/pico.min.css';
 import { localDBUrl, profileUrl } from '../controller/URLManager';
 import Loading from '../components/Loading';
 import EditProfile from '../components/EditProfile';
+import Answer from '../components/Answer';
+import Bookmark from '../components/Bookmark';
+import Note from '../components/Note';
+import QuestionList from '../components/QuestionList';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLinkedin, faGithub, faTwitter } from '@fortawesome/free-brands-svg-icons';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
 
 const socialMediaIcons = {
   linkedin: faLinkedin,
@@ -15,66 +17,86 @@ const socialMediaIcons = {
   twitter: faTwitter,
 };
 
-
 const Profile = () => {
   const [profile, setProfile] = useState(null);
-  // const [loading, setLoading] = useState(false);
+  const [typeClicked, setTypeClicked] = useState('question');
 
-  useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        const response = await axios.post(localDBUrl+'/users/getuser',{
-            userId: JSON.parse(localStorage.getItem("userData"))._id
-        }); 
-        // console.log(response)
-        setProfile(response.data);
-      } catch (error) {
-        console.error('Error fetching profile data:', error);
-      }
-    };
+  const handleButtonController = (buttonType) => {
+    setTypeClicked(buttonType);
+  };
 
-    fetchProfile();
+  const renderProfileContent = () => {
+    switch (typeClicked) {
+      case 'question':
+        return <QuestionList userId={profile.userId} />;
+      case 'answer':
+        return <Answer answers={profile.answersList} />;
+      case 'bookmark':
+        return <Bookmark bookmarks={profile.bookmarkedQuestions} />;
+      case 'note':
+        return <Note notes={profile.savedNotes} />;
+      case 'editProfile':
+        return <EditProfile UserProfile={profile} setProfileData={setProfile} />;
+      default:
+        return null;
+    }
+  };
+
+  const fetchProfile = useCallback(async () => {
+    try {
+      const userId = JSON.parse(localStorage.getItem("userData"))._id;
+      const response = await axios.post(`${localDBUrl}/users/getuser`, { userId });
+      setProfile(response.data);
+    } catch (error) {
+      console.error('Error fetching profile data:', error);
+    }
   }, []);
 
-  
-  if (!profile ) {
+  useEffect(() => {
+    fetchProfile();
+  }, [fetchProfile]);
+
+  if (!profile) {
     return <Loading />;
   }
-  
 
   return (
     <div className="container">
-      <div className="grid" style={{
-        gridTemplateColumns: "25% 75%",
-      }}>
+      <div className="grid" style={{ gridTemplateColumns: "25% 75%" }}>
         <div className="column" style={{ maxWidth: '250px' }}>
           <div className="profile-sidebar">
-            <img 
-              src={profile.profilePicture || profileUrl} 
-              alt="Profile" 
+            <img
+              src={profile.profilePicture || profileUrl}
+              alt="Profile"
               className="profile-picture"
             />
             <h2>{profile.userId.fullName}</h2>
             <h3>{profile.userId.userName}</h3>
-            <p>{profile.bio}</p>    
+            <p>{profile.bio}</p>
             <div className="social-media-links">
-            {Object.entries(profile.socialMediaLinks).map(([platform, url]) => {
-              const icon = socialMediaIcons[platform];
-              return (icon && url) ? (
-                <a href={url || '#'} target="_blank" rel="noopener noreferrer" key={platform}>
-                  <FontAwesomeIcon icon={icon} size="2x" />
-                </a>
-              ) : null;
-            })}
-          </div>
-            <p>{profile.questionsList.length} Question Asked</p>
+              {Object.entries(profile.socialMediaLinks).map(([platform, url]) => {
+                const icon = socialMediaIcons[platform];
+                return icon && url ? (
+                  <a href={url} target="_blank" rel="noopener noreferrer" key={platform}>
+                    <FontAwesomeIcon icon={icon} size="2x" />
+                  </a>
+                ) : null;
+              })}
+            </div>
+            <p>{profile.questionsList.length} Questions Asked</p>
             <p>{profile.answersList.length} Answers Given</p>
-            <button className="outline" onClick={() => alert('Edit Profile Clicked')}>Edit Profile</button>
+            <div className="button-group" style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+              <button className="secondary" onClick={() => handleButtonController('question')}>Questions</button>
+              <button className="secondary" onClick={() => handleButtonController('answer')}>Answers</button>
+              <button className="secondary" onClick={() => handleButtonController('bookmark')}>Bookmarks</button>
+              <button className="secondary" onClick={() => handleButtonController('note')}>Notes</button>
+              <button className="outline" onClick={() => handleButtonController('editProfile')}>Edit Profile</button>
+            </div>
           </div>
         </div>
         <div className="column">
           <div className="profile-content">
-            <EditProfile UserProfile={profile}  setProfileData={setProfile}/>            
+            {renderProfileContent()}
           </div>
         </div>
       </div>
