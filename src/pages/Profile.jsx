@@ -4,12 +4,12 @@ import '@picocss/pico/css/pico.min.css';
 import { localDBUrl, profileUrl } from '../controller/URLManager';
 import Loading from '../components/Loading';
 import EditProfile from '../components/EditProfile';
-import Answer from '../components/Answer';
 import Bookmark from '../components/Bookmark';
 import Note from '../components/Note';
 import QuestionList from '../components/QuestionList';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLinkedin, faGithub, faTwitter } from '@fortawesome/free-brands-svg-icons';
+import AnswerList from '../components/AnswerList';
 
 const socialMediaIcons = {
   linkedin: faLinkedin,
@@ -30,7 +30,7 @@ const Profile = () => {
       case 'question':
         return <QuestionList userId={profile.userId} />;
       case 'answer':
-        return <Answer answers={profile.answersList} />;
+        return <AnswerList userId={profile.userId} />;
       case 'bookmark':
         return <Bookmark bookmarks={profile.bookmarkedQuestions} />;
       case 'note':
