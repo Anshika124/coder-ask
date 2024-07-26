@@ -3,13 +3,16 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useQuill } from 'react-quilljs';
 import { localDBUrl } from '../controller/URLManager';
+import { TagsInput } from "react-tag-input-component";
 import 'quill/dist/quill.snow.css';
+import '../css/Ask.css'
 
 function Ask() {
   const { quill, quillRef } = useQuill();
   const [title, setTitle] = useState('');
   const [tags, setTags] = useState([]);  // Initialize as an empty array
   const [tagInput, setTagInput] = useState('');
+
 
   const Navigate = useNavigate();
 
@@ -41,7 +44,7 @@ function Ask() {
     try {
       let res = await axios.post(localDBUrl+"/questions/addquestion", {
         title: title,
-        tags: [],
+        tags: tags,
         description: quill.root.innerHTML,
         postedBy: JSON.parse(localStorage.getItem("userData"))._id
       });
@@ -75,34 +78,14 @@ function Ask() {
             borderRadius: '4px'
           }}
         />
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px', marginBottom: '10px', alignItems: 'center' }}>
-          {tags.map((tag, index) => (
-            <span key={index} style={{
-              backgroundColor: '#007BFF',
-              color: 'white',
-              padding: '5px 10px',
-              borderRadius: '50px',
-              display: 'flex',
-              alignItems: 'center'
-            }}>
-              {tag}
-            </span>
-          ))}
-          <input
-            type='text'
-            placeholder='Tags (separated by space or enter)'
-            value={tagInput}
-            onChange={handleTagInputChange}
-            onKeyDown={handleTagInputKeyDown}
-            onBlur={handleTagInputBlur}
-            style={{
-              flex: '1',
-              padding: '10px',
-              fontSize: '16px',
-              border: '1px solid #ccc',
-              borderRadius: '4px'
-            }}
-          />
+        <div className='tagContainer' style={{ display: 'flex', flexWrap: 'wrap', gap: '5px', marginBottom: '10px', alignItems: 'center' }}>
+        <TagsInput
+        value={tags}
+        onChange={setTags}
+
+        name="fruits"
+        placeHolder="enter tags"
+      />
         </div>
         <div ref={quillRef} style={{ height: '300px' }} />
         <button onClick={handleSubmit} style={{
