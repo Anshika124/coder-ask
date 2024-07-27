@@ -1,30 +1,68 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import  parse from 'html-react-parser';
+import parse from 'html-react-parser';
+import moment from 'moment/moment';
 import { localDBUrl } from '../controller/URLManager';
-import AnswerList from '../components/AnswerList';
 import Loading from '../components/Loading';
 
 const QuestionInfo = () => {
   const [question, setQuestion] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [upvotes, setUpvotes] = useState(0);
+  const [voteStatus, setVoteStatus] = useState('');
 
-  const {title, id} = useParams();
-    
-    useEffect(() =>{
-        const fetchQuestionInfo = async () =>{
-            try {
-                const questionInfo = await axios.get(localDBUrl+"/questions/questionbyid", {params: {_id:id}})
-                console.log(questionInfo);
-                setQuestion(questionInfo.data[0])
-                setLoading(false)
-            }
-            catch (err) {
-            }
-        }
-        fetchQuestionInfo();
-    },[])
+  const { id } = useParams();
+
+  useEffect(() => {
+    const fetchQuestionInfo = async () => {
+      try {
+        const questionInfo = await axios.get(localDBUrl + "/questions/questionbyid", { params: { _id: id } });
+        console.log(questionInfo);
+        setQuestion(questionInfo.data[0]);
+        let upvoteCountList = questionInfo.data[0].upvotesList.filter( upvotes => upvotes.isUpvote)
+        let downvoteCountList = questionInfo.data[0].upvotesList.filter( downvotes => !downvotes.isUpvote)
+        setUpvotes(upvoteCountList.length - downvoteCountList.length)
+        let userId = JSON.parse(localStorage.getItem('userData'))._id;
+        let upd = questionInfo.data[0].upvotesList.filter(user => user.userId === userId);
+
+        if (upd.length > 0) {
+          console.log("reached " + upd[0].isUpvote);
+          if (upd[0].isUpvote) {
+            setVoteStatus('upvote');
+          } else {
+            setVoteStatus('downvote');
+          }
+        } 
+        setLoading(false);
+
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchQuestionInfo();
+  }, [id]);
+
+  const handleUpvote = async () => {
+    try {
+      let res = await axios.put(localDBUrl + "/questions/updateupvotecount", { questionId: id, userId: question.postedBy._id, isUpvote: true });
+      setUpvotes(res.data.VoteCount);
+      setVoteStatus('upvote')
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const handleDownvote = async () => {
+    try {
+      let res = await axios.put(localDBUrl + "/questions/updateupvotecount", { questionId: id, userId: question.postedBy._id, isUpvote: false });
+      setUpvotes(res.data.VoteCount);
+      setVoteStatus('downvote')
+
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   if (loading) {
     return <Loading />;
@@ -36,15 +74,36 @@ const QuestionInfo = () => {
 
   return (
     <div className="container">
-      <div className="question-detail">
-        <h1>{question.title}</h1>
-        <p><strong>Description:</strong> {parse(question.description)}</p>
-        <p><strong>Tags:</strong> {question.tags.join(', ')}</p>
-        <p><strong>Posted On:</strong> {new Date(question.postedOn).toLocaleString()}</p>
-        <p><strong>Upvotes:</strong> {question.upvotesList.length}</p>
-        <h2>Answers:</h2>
-        {/* <AnswerList answers={question.answersList} /> */}
-      </div>
+      <article className="question-detail" style={{ display: 'flex' }}>
+        <div className="vote-buttons" style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          marginRight: '20px'
+        }}>
+          <button className="upvote-button" onClick={handleUpvote} disabled={voteStatus == 'upvote'}>▲</button>
+          <span>{upvotes}</span>
+          <button className="downvote-button" onClick={handleDownvote} disabled={voteStatus == 'downvote'}>▼</button>
+        </div>
+        <div className="question-content">
+          <h1>{question.title}</h1>
+          <p>{String(question.postedBy.userName)} ● {moment(new Date(question.postedOn)).fromNow()}</p>
+          <p><strong>Description:</strong> {parse(question.description)}</p>
+          <p><strong>Tags:</strong> {question.tags.join(', ')}</p>
+          <h3>Answers:</h3>
+          {question.answersList.length > 0 ? (
+            question.answersList.map((answer) => (
+              <div key={answer._id} style={{ borderBottom: '1px solid #ddd' }}>
+                <p><strong>Answer:</strong> {answer.description}</p>
+                <p><strong>Answered On:</strong> {new Date(answer.answeredOn).toLocaleString()}</p>
+                <p><strong>Upvotes:</strong> {answer.upvotesList.length}</p>
+              </div>
+            ))
+          ) : (
+            <p>Not answered yet.</p>
+          )}
+        </div>
+      </article>
     </div>
   );
 };
