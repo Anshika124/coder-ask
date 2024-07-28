@@ -5,12 +5,14 @@ import parse from 'html-react-parser';
 import moment from 'moment/moment';
 import { localDBUrl } from '../controller/URLManager';
 import Loading from '../components/Loading';
+import AddAnswer from '../components/AddAnswer';
 
 const QuestionInfo = () => {
   const [question, setQuestion] = useState(null);
   const [loading, setLoading] = useState(true);
   const [upvotes, setUpvotes] = useState(0);
   const [voteStatus, setVoteStatus] = useState('');
+  const [enableAnswer, setEnableAnswer] = useState(false);
 
   const { id } = useParams();
 
@@ -41,7 +43,7 @@ const QuestionInfo = () => {
       }
     };
     fetchQuestionInfo();
-  }, [id]);
+  }, [id, loading]);
 
   const handleUpvote = async () => {
     try {
@@ -89,7 +91,11 @@ const QuestionInfo = () => {
           <h1>{question.title}</h1>
           <p>{String(question.postedBy.userName)} ● {moment(new Date(question.postedOn)).fromNow()}</p>
           <p><strong>Description:</strong> {parse(question.description)}</p>
-          <p><strong>Tags:</strong> {question.tags.join(', ')}</p>
+          {question.tags.length>0 && <p><strong>Tags:</strong> {question.tags.join(', ')}</p>}
+          <div>
+            {enableAnswer?<AddAnswer setEnableAnswer={setEnableAnswer} questionId={id} setLoading={setLoading}/>:<button onClick={()=>{setEnableAnswer(true)}}>Add Answer</button>  }
+            
+          </div>
           <h3>Answers:</h3>
           {question.answersList.length > 0 ? (
             question.answersList.map((answer) => (
