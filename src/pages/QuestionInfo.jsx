@@ -6,6 +6,8 @@ import moment from 'moment/moment';
 import { localDBUrl } from '../controller/URLManager';
 import Loading from '../components/Loading';
 import AddAnswer from '../components/AddAnswer';
+import AnswerCard from '../components/AnswerCard';
+import { getLocal } from '../controller/ProjectData';
 
 const QuestionInfo = () => {
   const [question, setQuestion] = useState(null);
@@ -15,6 +17,11 @@ const QuestionInfo = () => {
   const [enableAnswer, setEnableAnswer] = useState(false);
 
   const { id } = useParams();
+  let local = null
+  useEffect(()=>{
+    local = getLocal();
+  }, [])
+
 
   useEffect(() => {
     const fetchQuestionInfo = async () => {
@@ -25,7 +32,9 @@ const QuestionInfo = () => {
         let upvoteCountList = questionInfo.data[0].upvotesList.filter( upvotes => upvotes.isUpvote)
         let downvoteCountList = questionInfo.data[0].upvotesList.filter( downvotes => !downvotes.isUpvote)
         setUpvotes(upvoteCountList.length - downvoteCountList.length)
-        let userId = JSON.parse(localStorage.getItem('userData'))._id;
+        console.log(typeof(local))
+        let userId = local!==null? local._id: local;
+
         let upd = questionInfo.data[0].upvotesList.filter(user => user.userId === userId);
 
         if (upd.length > 0) {
@@ -46,8 +55,13 @@ const QuestionInfo = () => {
   }, [id, loading]);
 
   const handleUpvote = async () => {
+    if (!local)
+    {
+      alert("Please Login to vote")
+      return
+    }
     try {
-      let res = await axios.put(localDBUrl + "/questions/updateupvotecount", { questionId: id, userId: question.postedBy._id, isUpvote: true });
+      let res = await axios.put(localDBUrl + "/questions/updateupvotecount", { questionId: id, userId: local._id, isUpvote: true });
       setUpvotes(res.data.VoteCount);
       setVoteStatus('upvote')
     } catch (err) {
@@ -56,8 +70,12 @@ const QuestionInfo = () => {
   };
 
   const handleDownvote = async () => {
+    if (!local) {
+      alert("Please Login to vote")
+      return
+    }
     try {
-      let res = await axios.put(localDBUrl + "/questions/updateupvotecount", { questionId: id, userId: question.postedBy._id, isUpvote: false });
+      let res = await axios.put(localDBUrl + "/questions/updateupvotecount", { questionId: id, userId: local._id, isUpvote: false });
       setUpvotes(res.data.VoteCount);
       setVoteStatus('downvote')
 
@@ -99,11 +117,7 @@ const QuestionInfo = () => {
           <h3>Answers:</h3>
           {question.answersList.length > 0 ? (
             question.answersList.map((answer) => (
-              <div key={answer._id} style={{ borderBottom: '1px solid #ddd' }}>
-                <p><strong>Answer:</strong> {answer.description}</p>
-                <p><strong>Answered On:</strong> {new Date(answer.answeredOn).toLocaleString()}</p>
-                <p><strong>Upvotes:</strong> {answer.upvotesList.length}</p>
-              </div>
+              <AnswerCard answer={answer}/>
             ))
           ) : (
             <p>Not answered yet.</p>

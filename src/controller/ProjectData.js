@@ -1,5 +1,6 @@
 export const isDebug = true;
 
+
 function generateRandomString(length) {
     const characters = 'abcdefghijklmnopqrstuvwxyz0123456789';
     let result = '';
@@ -28,4 +29,15 @@ export function generateUser() {
         email: email,
         password: password
     };
+}
+
+export function getLocal()
+{
+    let local = localStorage.getItem('userData');
+    console.log(typeof(local))
+    if (local===null || local===undefined || local==='{}')
+    {  
+        return null;
+    }
+    return JSON.parse(local);
 }
