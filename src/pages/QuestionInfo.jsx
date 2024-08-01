@@ -105,25 +105,27 @@ const QuestionInfo = () => {
           <span>{upvotes}</span>
           <button className="downvote-button" onClick={handleDownvote} disabled={voteStatus == 'downvote'}>▼</button>
         </div>
-        <div className="question-content">
+        <div className="question-content" style={{width: '100%'}}>
           <h1>{question.title}</h1>
-          <p>{String(question.postedBy.userName)} ● {moment(new Date(question.postedOn)).fromNow()}</p>
+          <p style={{ color: 'grey' }}>{String(question.postedBy.userName)} ● {moment(new Date(question.postedOn)).fromNow()}</p>
           <p><strong>Description:</strong> {parse(question.description)}</p>
           {question.tags.length>0 && <p><strong>Tags:</strong> {question.tags.join(', ')}</p>}
           <div>
             {enableAnswer?<AddAnswer setEnableAnswer={setEnableAnswer} questionId={id} setLoading={setLoading}/>:<button onClick={()=>{setEnableAnswer(true)}}>Add Answer</button>  }
             
           </div>
-          <h3>Answers:</h3>
-          {question.answersList.length > 0 ? (
-            question.answersList.map((answer) => (
-              <AnswerCard answer={answer}/>
-            ))
-          ) : (
-            <p>Not answered yet.</p>
-          )}
         </div>
       </article>
+      <div  style={{ display: 'flex', flexDirection: 'column' }}>
+        
+        {question.answersList.length > 0 ? (
+          question.answersList.map((answer) => (
+            <AnswerCard answer={answer} />
+          ))
+        ) : (
+          <p>Not answered yet.</p>
+        )}
+      </div>
     </div>
   );
 };
