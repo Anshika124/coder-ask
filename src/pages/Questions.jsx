@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';import { localDBUrl } from '../controller/URLManager'
+import axios from 'axios';
+import { localDBUrl } from '../controller/URLManager'
 import Question from '../components/Question';
 
 function Questions() {
@@ -20,7 +21,12 @@ function Questions() {
     },[])
 
   return (
-    <div className="container" style={{ padding: '2rem', maxWidth: '600px', margin: 'auto', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
+    <div className="container" style={{
+      padding: '2rem',
+      maxWidth: '70vw',
+      margin: 'auto',
+      boxShadow: 'rgba(0, 0, 0, 0.1) 0px 4px 8px'
+       }}>
       <header className="header">
         <h1>Questions</h1>
       </header>

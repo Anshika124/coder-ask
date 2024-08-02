@@ -20,7 +20,12 @@ function Home() {
     },[])
 
   return (
-    <div className="container" style={{ padding: '2rem', maxWidth: '600px', margin: 'auto', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
+    <div className="container" style={{
+      padding: '2rem',
+      maxWidth: '70vw',
+      margin: 'auto',
+      boxShadow: 'rgba(0, 0, 0, 0.1) 0px 4px 8px'
+    }}>
       <header className="header">
         <h1>Questions</h1>
       </header>
