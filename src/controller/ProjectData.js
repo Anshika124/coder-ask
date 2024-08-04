@@ -34,7 +34,7 @@ export function generateUser() {
 export function getLocal()
 {
     let local = localStorage.getItem('userData');
-    console.log(typeof(local))
+    // console.log(typeof(local))
     if (local===null || local===undefined || local==='{}')
     {  
         return null;

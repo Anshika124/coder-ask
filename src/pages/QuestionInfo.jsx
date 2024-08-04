@@ -8,6 +8,9 @@ import Loading from '../components/Loading';
 import AddAnswer from '../components/AddAnswer';
 import AnswerCard from '../components/AnswerCard';
 import { getLocal } from '../controller/ProjectData';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBookmark } from '@fortawesome/free-solid-svg-icons';
+
 
 const QuestionInfo = () => {
   const [question, setQuestion] = useState(null);
@@ -15,25 +18,27 @@ const QuestionInfo = () => {
   const [upvotes, setUpvotes] = useState(0);
   const [voteStatus, setVoteStatus] = useState('');
   const [enableAnswer, setEnableAnswer] = useState(false);
-
+  const [bookmarkEnabled, setBookmarkEnabled] = useState(false);
   const { id } = useParams();
-  let local = null
-  useEffect(()=>{
-    local = getLocal();
-  }, [])
+  let local = getLocal();
+  // useEffect(()=>{
+  //   local = getLocal();
+  //   console.log("locL")
+  //   console.log(local);
+  // }, [local])
 
 
   useEffect(() => {
     const fetchQuestionInfo = async () => {
       try {
         const questionInfo = await axios.get(localDBUrl + "/questions/questionbyid", { params: { _id: id } });
-        console.log(questionInfo);
+        // console.log(questionInfo);
         setQuestion(questionInfo.data[0]);
-        let upvoteCountList = questionInfo.data[0].upvotesList.filter( upvotes => upvotes.isUpvote)
-        let downvoteCountList = questionInfo.data[0].upvotesList.filter( downvotes => !downvotes.isUpvote)
+        let upvoteCountList = questionInfo.data[0].upvotesList.filter(upvotes => upvotes.isUpvote)
+        let downvoteCountList = questionInfo.data[0].upvotesList.filter(downvotes => !downvotes.isUpvote)
         setUpvotes(upvoteCountList.length - downvoteCountList.length)
-        console.log(typeof(local))
-        let userId = local!==null? local._id: local;
+        // console.log(typeof(local))
+        let userId = local !== null ? local._id : local;
 
         let upd = questionInfo.data[0].upvotesList.filter(user => user.userId === userId);
 
@@ -44,7 +49,7 @@ const QuestionInfo = () => {
           } else {
             setVoteStatus('downvote');
           }
-        } 
+        }
         setLoading(false);
 
       } catch (err) {
@@ -55,8 +60,8 @@ const QuestionInfo = () => {
   }, [id, loading]);
 
   const handleUpvote = async () => {
-    if (!local)
-    {
+    console.log(local)
+    if (!local) {
       alert("Please Login to vote")
       return
     }
@@ -84,6 +89,38 @@ const QuestionInfo = () => {
     }
   };
 
+  const handleBookmark = async () => {
+    if (!local) {
+      alert("Please Login to bookmark")
+      return
+    }
+    
+    if (bookmarkEnabled==false) {
+      try {
+        console.log("reached if");
+        let res = await axios.post(localDBUrl + "/questions/addbookmarkquestion", { questionId: id, userId: local._id })
+        console.log(res.data);
+        setBookmarkEnabled(true)
+      }
+      catch (err) {
+        console.log("not reached");
+        console.log(err)
+      }
+    }
+    else if (bookmarkEnabled==true) {
+      try {
+        console.log("reached else");
+        let res = await axios.post(localDBUrl + "/questions/removebookmarkquestion", { questionId: id, userId: local._id })
+        console.log(res.data);
+        setBookmarkEnabled(false)
+      }
+      catch (err) {
+        console.log("not reached");
+        console.log(err)
+      }
+    }
+  }
+
   if (loading) {
     return <Loading />;
   }
@@ -104,20 +141,21 @@ const QuestionInfo = () => {
           <button className="upvote-button" onClick={handleUpvote} disabled={voteStatus == 'upvote'}>▲</button>
           <span>{upvotes}</span>
           <button className="downvote-button" onClick={handleDownvote} disabled={voteStatus == 'downvote'}>▼</button>
+          <button className="bookmark-button" style={{ marginTop: '10px', backgroundColor: bookmarkEnabled?'grey':'transparent' }} onClick={handleBookmark} ><FontAwesomeIcon icon={faBookmark} /></button>
         </div>
-        <div className="question-content" style={{width: '100%'}}>
+        <div className="question-content" style={{ width: '100%' }}>
           <h1>{question.title}</h1>
           <p style={{ color: 'grey' }}>{String(question.postedBy.userName)} ● {moment(new Date(question.postedOn)).fromNow()}</p>
           <p><strong>Description:</strong> {parse(question.description)}</p>
-          {question.tags.length>0 && <p><strong>Tags:</strong> {question.tags.join(', ')}</p>}
+          {question.tags.length > 0 && <p><strong>Tags:</strong> {question.tags.join(', ')}</p>}
           <div>
-            {enableAnswer?<AddAnswer setEnableAnswer={setEnableAnswer} questionId={id} setLoading={setLoading}/>:<button onClick={()=>{setEnableAnswer(true)}}>Add Answer</button>  }
-            
+            {enableAnswer ? <AddAnswer setEnableAnswer={setEnableAnswer} questionId={id} setLoading={setLoading} /> : <button onClick={() => { setEnableAnswer(true) }}>Add Answer</button>}
+
           </div>
         </div>
       </article>
-      <div  style={{ display: 'flex', flexDirection: 'column' }}>
-        
+      <div style={{ display: 'flex', flexDirection: 'column' }}>
+
         {question.answersList.length > 0 ? (
           question.answersList.map((answer) => (
             <AnswerCard answer={answer} />

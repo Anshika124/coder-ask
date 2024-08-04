@@ -46,6 +46,7 @@ const Profile = () => {
     try {
       const userId = JSON.parse(localStorage.getItem("userData"))._id;
       const response = await axios.post(`${localDBUrl}/users/getuser`, { userId });
+      console.log(response)
       setProfile(response.data);
     } catch (error) {
       console.error('Error fetching profile data:', error);
