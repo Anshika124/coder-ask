@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import parse from 'html-react-parser';
 import moment from 'moment/moment';
 import { localDBUrl } from '../controller/URLManager';
@@ -21,6 +21,9 @@ const QuestionInfo = () => {
   const [bookmarkEnabled, setBookmarkEnabled] = useState(false);
   const { id } = useParams();
   let local = getLocal();
+
+  const Navigate = useNavigate();
+
   // useEffect(()=>{
   //   local = getLocal();
   //   console.log("locL")
@@ -121,6 +124,24 @@ const QuestionInfo = () => {
     }
   }
 
+  const handleEdit = async() => {
+    try {
+      
+    }
+    catch (err) {
+    }
+  }
+  const handleDelete = async () => {
+    try {
+      console.log('are call hogye')
+      let deleteQuestion = await axios.delete(localDBUrl +'/questions/deletequestion',{params : {questionId: id}})
+      console.log(deleteQuestion);
+      Navigate('/');
+    }
+    catch (err) {
+    }
+  }
+
   if (loading) {
     return <Loading />;
   }
@@ -148,8 +169,10 @@ const QuestionInfo = () => {
           <p style={{ color: 'grey' }}>{String(question.postedBy.userName)} ● {moment(new Date(question.postedOn)).fromNow()}</p>
           <p><strong>Description:</strong> {parse(question.description)}</p>
           {question.tags.length > 0 && <p><strong>Tags:</strong> {question.tags.join(', ')}</p>}
-          <div>
+          <div style={{display:'flex', gap:'5px'}}>
             {enableAnswer ? <AddAnswer setEnableAnswer={setEnableAnswer} questionId={id} setLoading={setLoading} /> : <button onClick={() => { setEnableAnswer(true) }}>Add Answer</button>}
+            {question.postedBy._id == local._id ? <><button onClick={handleEdit} style={{ background: 'transparent', borderColor: 'green' }}>Edit</button>
+              <button onClick={handleDelete} style={{ backgroundColor: 'transparent', borderColor: 'red' }}>Delete</button></>:<></>}
 
           </div>
         </div>
