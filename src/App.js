@@ -10,6 +10,8 @@ import Ask from './pages/Ask';
 import SignOut from './pages/SignOut';
 import Profile from './pages/Profile';
 import QuestionInfo from './pages/QuestionInfo';
+import EditAsk from './pages/EditAsk';
+
 
 
 function App() {
@@ -36,6 +38,7 @@ function App() {
           <Route path='/register' element={<Registration setIsLoggedIn={setIsLoggedIn}/>} />
           <Route path='/questions' element={<Questions />} />
           <Route path='/ask' element={<Ask />} />
+          <Route path='/editask/:id' element={<EditAsk/>} />
           <Route path='/signout' element={<SignOut setIsLoggedIn={setIsLoggedIn}/>} />
           <Route path='/profile' element={<Profile />} />
           <Route path="/question/:title/:id" element={<QuestionInfo/>} />
