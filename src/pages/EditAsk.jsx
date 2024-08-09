@@ -65,7 +65,7 @@ function EditAsk() {
 
   useEffect(() => {
     const fetchQuestionInfo = async () => {
-        console.log("oo")
+        
       try {
         const questionInfo = await axios.get(
           localDBUrl + "/questions/questionbyid",
