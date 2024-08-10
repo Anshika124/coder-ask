@@ -10,9 +10,9 @@ import '../css/Ask.css';
 import { useParams } from 'react-router-dom';
 
 function EditAsk() {
-    const obj = "EditAsk";
-  const { quill, quillRef } = useQuill({obj});
-  const [updating, setUpdating ]= useState(true);
+  const obj = "EditAsk";
+  const { quill, quillRef } = useQuill({ obj });
+
   const [title, setTitle] = useState('');
   const [tags, setTags] = useState([]);  // Initialize as an empty array
   const [tagInput, setTagInput] = useState('');
@@ -46,17 +46,18 @@ function EditAsk() {
 
   const handleSubmit = async () => {
     try {
-      let res = await axios.post(localDBUrl + "/questions/addquestion", {
+      let res = await axios.put(localDBUrl + "/questions/updatequestion", {
+        questionId: id,
         title: title,
         tags: tags,
         description: quill.root.innerHTML,
         postedBy: JSON.parse(localStorage.getItem("userData"))._id
       });
-      
+
       if (res.data.success) {
-        navigate('/');
+        navigate(`/question/${title}/${id}`);
       } else {
-        console.log(res.data.message);
+        console.log("msg"+res.data.message);
       }
     } catch (error) {
       console.error(error);
@@ -65,7 +66,6 @@ function EditAsk() {
 
   useEffect(() => {
     const fetchQuestionInfo = async () => {
-        
       try {
         const questionInfo = await axios.get(
           localDBUrl + "/questions/questionbyid",
@@ -73,12 +73,10 @@ function EditAsk() {
         );
         setTitle(questionInfo.data[0].title);
         setTags(questionInfo.data[0].tags);
-        
+
         if (quill) {
-          quill.clipboard.dangerouslyPasteHTML(
-            questionInfo.data[0].description
-          );
-          setUpdating(false);
+          // Use clipboard to set HTML content in Quill
+          quill.clipboard.dangerouslyPasteHTML(questionInfo.data[0].description);
         }
 
         setLoading(false);
@@ -86,11 +84,9 @@ function EditAsk() {
         console.error(err);
       }
     };
-    console.log(quill)
-    if (quill) {
-      fetchQuestionInfo();
-    }
-  }, [quill, id, updating]);
+
+    fetchQuestionInfo();
+  }, [quill, id]);
 
   if (loading) {
     return <Loading />;
@@ -122,7 +118,7 @@ function EditAsk() {
           />
         </div>
         <div ref={quillRef} style={{ height: '300px' }} />
-        <button onClick={handleSubmit} style={{ marginTop: '10px' }}>Ask</button>
+        <button onClick={handleSubmit} style={{ marginTop: '10px' }}>Update</button>
       </div>
     </div>
   );

@@ -228,13 +228,13 @@ const QuestionInfo = () => {
             ) : (
               <button
                 onClick={() => {
-                  setEnableAnswer(true);
+                  setEnableAnswer(!enableAnswer);
                 }}
               >
                 Add Answer
               </button>
             )}
-            {question.postedBy._id == local._id ? (
+            {question.postedBy._id == local._id && !enableAnswer? (
               <>
                 <button
                   onClick={handleEdit}
