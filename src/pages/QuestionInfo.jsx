@@ -257,7 +257,7 @@ const QuestionInfo = () => {
       </article>
       <div style={{ display: "flex", flexDirection: "column" }}>
         {question.answersList.length > 0 ? (
-          question.answersList.map((answer) => <AnswerCard answer={answer} />)
+          question.answersList.map((answer) => <AnswerCard answer={answer} setLoading={setLoading}/>)
         ) : (
           <p>Not answered yet.</p>
         )}
