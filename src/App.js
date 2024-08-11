@@ -11,6 +11,7 @@ import SignOut from './pages/SignOut';
 import Profile from './pages/Profile';
 import QuestionInfo from './pages/QuestionInfo';
 import EditAsk from './pages/EditAsk';
+import Search from './pages/Search';
 
 
 
@@ -42,6 +43,7 @@ function App() {
           <Route path='/signout' element={<SignOut setIsLoggedIn={setIsLoggedIn}/>} />
           <Route path='/profile' element={<Profile />} />
           <Route path="/question/:title/:id" element={<QuestionInfo/>} />
+          <Route path="/search" element={<Search />} />
           
         </Routes>
       </Router>
