@@ -1,23 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';import { localDBUrl } from '../controller/URLManager'
 import Question from '../components/Question';
+import Loading from '../components/Loading';
 
 function Home() {
   
   const [questionList, setQuestionList] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-    useEffect(() =>{
-        const fetchQuestionList = async()=>{
-            try {
-                const res = await axios.get(localDBUrl+'/questions/allquestionlist');
-                setQuestionList(res.data);
-                console.log(res);
-            }
-            catch (e) {
-            }
-        }
-        fetchQuestionList();
-    },[])
+
+  useEffect(() => {
+    const fetchQuestionList = async () => {
+      try {
+        setLoading(true);
+        const res = await axios.get(localDBUrl + '/questions/allquestionlist');
+        setQuestionList(res.data);
+        console.log(res);
+        setLoading(false);
+      }
+      catch (e) {
+      }
+    }
+    fetchQuestionList();
+  }, [])
+
+  if (loading) {
+    return <Loading />
+  }
 
   return (
     <div className="container" style={{

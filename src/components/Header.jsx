@@ -21,7 +21,8 @@ const Header = ({ isLoggedIn }) => {
     <header style={{ display: 'flex', alignItems: 'center', padding: '1rem 2rem', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
       <div style={{ flex: 1 }}>
         <Link to="/">
-          <img src={logoUrl} alt="Logo" style={{ height: '40px' }} />
+        <span>BugSolved</span>
+          {/* <im/>g src={logoUrl} alt="Logo" style={{ height: '40px' }} /> */}
         </Link>
       </div>
       <nav style={{ flex: 2, display: 'flex', justifyContent: 'center', gap: '2rem' }}>
