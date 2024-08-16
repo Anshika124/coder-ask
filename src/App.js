@@ -35,6 +35,7 @@ function App() {
       <Header isLoggedIn={isLoggedIn}/>
         <Routes>
           <Route path='/' element={<Home/>}/>
+          <Route path='/coder-ask' element={<Home/>}/>
           <Route path='/login' element={<Login setIsLoggedIn={setIsLoggedIn}/>} />
           <Route path='/register' element={<Registration setIsLoggedIn={setIsLoggedIn}/>} />
           <Route path='/questions' element={<Questions />} />
