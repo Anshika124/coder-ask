@@ -1,0 +1,38 @@
+.Home {
+  padding: 0;
+  max-width: 100vw;
+}
+
+/* margin: 'auto',
+      boxShadow: 'rgba(0, 0, 0, 0.1) 0px 4px 8px' */
+
+/* For Mobile devices (320px — 480px) */
+@media only screen and (min-width: 320px) and (max-width: 480px) {
+}
+
+/* For iPads, Tablets (481px — 768px) */
+@media only screen and (min-width: 481px) and (max-width: 768px) {
+  /* Your CSS rules here */
+}
+
+/* For Small screens, laptops (769px — 1024px) */
+@media only screen and (min-width: 769px)  {
+  .Home {
+    max-width: 65vw;
+  }
+}
+
+/* For Desktops, large screens (1025px — 1200px) */
+@media only screen and (min-width: 1025px)  {
+  .Home {
+    max-width: 60vw;
+  }
+}
+
+/* For Extra large screens, TV (1201px and more) */
+@media only screen and (min-width: 1201px) {
+  /* Your CSS rules here */
+  .Home {
+    max-width: 60vw;
+  }
+}

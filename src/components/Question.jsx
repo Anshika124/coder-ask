@@ -40,8 +40,8 @@ function Question({ question }) {
                 <h2>{question.title}</h2>
                 <div style={{ marginBottom: '10px' }}>
                     {
-                        question.tags.map((tag) => {
-                            return <span style={{ background: '#007ebd', marginRight: '5px', borderRadius: '10px', padding: '5px 8px', textAlign: 'center' }}>{tag}</span>
+                        question.tags.map((tag, index) => {
+                            return <span key={index} style={{ background: '#007ebd', marginRight: '5px', borderRadius: '10px', padding: '5px 8px', textAlign: 'center' }}>{tag}</span>
                         })
                     }
                 </div>

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';import { localDBUrl } from '../controller/URLManager'
 import Question from '../components/Question';
 import Loading from '../components/Loading';
+import '../css/Home.css';
 
 function Home() {
   
@@ -15,7 +16,7 @@ function Home() {
         setLoading(true);
         const res = await axios.get(localDBUrl + '/questions/allquestionlist');
         setQuestionList(res.data);
-        console.log(res);
+        // console.log(res);
         setLoading(false);
       }
       catch (e) {
@@ -29,12 +30,7 @@ function Home() {
   }
 
   return (
-    <div className="container" style={{
-      padding: '2rem',
-      maxWidth: '70vw',
-      margin: 'auto',
-      boxShadow: 'rgba(0, 0, 0, 0.1) 0px 4px 8px'
-    }}>
+    <div className="container Home">
       <header className="header">
         <h1>Questions</h1>
       </header>
