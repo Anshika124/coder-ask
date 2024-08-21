@@ -12,7 +12,7 @@ import Profile from './pages/Profile';
 import QuestionInfo from './pages/QuestionInfo';
 import EditAsk from './pages/EditAsk';
 import Search from './pages/Search';
-
+import { githubDomain } from './controller/URLManager';
 
 
 function App() {
@@ -34,17 +34,16 @@ function App() {
       <Router>
       <Header isLoggedIn={isLoggedIn}/>
         <Routes>
-          <Route path='/' element={<Home/>}/>
-          <Route path='/coder-ask' element={<Home/>}/>
-          <Route path='/login' element={<Login setIsLoggedIn={setIsLoggedIn}/>} />
-          <Route path='/register' element={<Registration setIsLoggedIn={setIsLoggedIn}/>} />
-          <Route path='/questions' element={<Questions />} />
-          <Route path='/ask' element={<Ask />} />
-          <Route path='/editask/:id' element={<EditAsk/>} />
-          <Route path='/signout' element={<SignOut setIsLoggedIn={setIsLoggedIn}/>} />
-          <Route path='/profile' element={<Profile />} />
-          <Route path="/question/:title/:id" element={<QuestionInfo/>} />
-          <Route path="/search" element={<Search />} />
+          <Route path={`${githubDomain}`} element={<Home />} />
+          <Route path={`${githubDomain}login`} element={<Login setIsLoggedIn={setIsLoggedIn}/>} />
+          <Route path={`${githubDomain}register`} element={<Registration setIsLoggedIn={setIsLoggedIn}/>} />
+          <Route path={`${githubDomain}questions`} element={<Questions />} />
+          <Route path={`${githubDomain}ask`} element={<Ask />} />
+          <Route path={`${githubDomain}editask/:id`} element={<EditAsk/>} />
+          <Route path={`${githubDomain}signout`} element={<SignOut setIsLoggedIn={setIsLoggedIn}/>} />
+          <Route path={`${githubDomain}profile`} element={<Profile />} />
+          <Route path={`${githubDomain}question/:title/:id`} element={<QuestionInfo/>} />
+          <Route path={`${githubDomain}search`} element={<Search />} />
           
         </Routes>
       </Router>

@@ -1,5 +1,5 @@
 export const isDebug = true;
-
+export const isLocalhost = false;
 
 function generateRandomString(length) {
     const characters = 'abcdefghijklmnopqrstuvwxyz0123456789';
