@@ -2,7 +2,7 @@
   "name": "coder-ask",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://Anshika124.github.io/coder-ask",
+  "homepage": "https://Anshika124.github.io/coder-ask/",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.5.2",
     "@fortawesome/free-brands-svg-icons": "^6.5.2",
