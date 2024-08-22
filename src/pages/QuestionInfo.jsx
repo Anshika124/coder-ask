@@ -23,11 +23,6 @@ const QuestionInfo = () => {
 
   const Navigate = useNavigate();
 
-  // useEffect(()=>{
-  //   local = getLocal();
-  //   console.log("locL")
-  //   console.log(local);
-  // }, [local])
 
   useEffect(() => {
     const fetchQuestionInfo = async () => {
@@ -234,7 +229,7 @@ const QuestionInfo = () => {
                 Add Answer
               </button>
             )}
-            {question.postedBy._id == local._id && !enableAnswer? (
+            {local && question.postedBy._id == local._id && !enableAnswer? (
               <>
                 <button
                   onClick={handleEdit}

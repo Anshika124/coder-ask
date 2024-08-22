@@ -39,7 +39,7 @@ function App() {
           <Route path={`${githubDomain}register`} element={<Registration setIsLoggedIn={setIsLoggedIn}/>} />
           <Route path={`${githubDomain}questions`} element={<Questions />} />
           {/* <Route path={`${githubDomain}ask`} element={<Ask />} /> */}
-          <Route path={`/coder-ask/ask`} element={<Ask />} />
+          <Route path={`${githubDomain}ask`} element={<Ask />} />
           <Route path={`${githubDomain}editask/:id`} element={<EditAsk/>} />
           <Route path={`${githubDomain}signout`} element={<SignOut setIsLoggedIn={setIsLoggedIn}/>} />
           <Route path={`${githubDomain}profile`} element={<Profile />} />
