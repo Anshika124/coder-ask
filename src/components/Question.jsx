@@ -31,13 +31,13 @@ function Question({ question }) {
     return (
         <NavLink to={`/question/${question.title.replace(/[?\/]/g, '')}/${question._id}`} style={{ textDecoration: 'none', color: 'white' }}>
             <div className="question" style={{
-                padding: '1rem',
-                background: '#22262e',
-                borderRadius: '20px',
-                marginBottom: '25px'
+                padding: '10px',
+                // background: '#22262e',
+                // borderRadius: '20px',
+                // marginBottom: '25px'
             }}>
 
-                <h2>{question.title}</h2>
+                <h3>{question.title}</h3>
                 <div style={{ marginBottom: '10px' }}>
                     {
                         question.tags.map((tag, index) => {
@@ -51,7 +51,7 @@ function Question({ question }) {
                     <p style={{ paddingRight: '10px' }}><strong>Votes:</strong> {voteCount}</p>
                     <p><strong>Answered:</strong> {question.answersList.length}</p>
                 </div>
-
+<hr/>
             </div>
         </NavLink>
     );
