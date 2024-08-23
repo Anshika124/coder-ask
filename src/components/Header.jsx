@@ -1,53 +1,78 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '@picocss/pico/css/pico.min.css';
 import { logoUrl } from '../controller/URLManager';
-const Header = ({ isLoggedIn }) => {
-  // console.log(isLoggedIn);
+import '../css/Header.css';
 
-  const Navigate = useNavigate()
+const Header = ({ isLoggedIn }) => {
+  const [menuOpen, setMenuOpen] = useState(true);
+  const Navigate = useNavigate();
 
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
       const query = event.target.value;
-      // Call your method here with the query value
       console.log('Search query:', query);
-      Navigate('/search?q='+query)
-      // You can also navigate to a different route or trigger a search function
+      Navigate('/search?q=' + query);
     }
-  }
+  };
+
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
 
   return (
-    <header style={{ display: 'flex', alignItems: 'center', padding: '1rem 2rem', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
-      <div style={{ flex: 1 }}>
+    <header className="Header">
+      <div style={{ flex: 1, display:'flex', justifyContent:'center' }}>
         <Link to="/">
-        <span>BugSolved</span>
-          {/* <im/>g src={logoUrl} alt="Logo" style={{ height: '40px' }} /> */}
+          {/* <span>BugSolved</span> */}
+          <img src={logoUrl} alt="Logo" style={{ height: '40px' }} />
         </Link>
       </div>
-      <nav style={{ flex: 2, display: 'flex', justifyContent: 'center', gap: '2rem' }}>
-        <Link to="/questions">Questions</Link>
-        <Link to="/ask">Ask</Link>
+      <div className="menu-icon" onClick={toggleMenu} style={{ display: 'none', cursor: 'pointer' }}>
+        &#9776;
+      </div>
+      <nav style={{ flex: 1, display: menuOpen ? 'flex' : 'none', justifyContent: 'center', gap: '2rem' }} className="nav-links">
+        <Link className='headerLinks' to="/questions">Questions</Link>
+        <Link className='headerLinks' to="/ask">Ask</Link>
       </nav>
       <div style={{ flex: 3, display: 'flex', justifyContent: 'center' }}>
         <input
+          className='searchInput'
           type="text"
           placeholder="Search..."
           onKeyDown={handleKeyDown}
-          style={{ width: '100%', maxWidth: '300px', padding: '0.5rem', borderRadius: '4px', border: '1px solid #ccc' }}
-
+         
         />
       </div>
       <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-end' }}>
         {isLoggedIn ? (
-          <div style={{ flex: 2, display: 'flex', justifyContent: 'center', gap: '1rem' }}>
-            <Link to="/profile">Profile</Link>
-            <Link to="/signout">Sign Out</Link>
+          <div style={{ flex: 2, display: 'flex', justifyContent: 'center', gap: '2rem' }}>
+            <Link className='headerLinks' to="/profile">Profile</Link>
+            <Link className='headerLinks' to="/signout">Sign Out</Link>
           </div>
         ) : (
           <Link to="/login">Login</Link>
         )}
       </div>
+      <style>
+        {`
+          @media (max-width: 768px) {
+            .menu-icon {
+              display: block;
+            }
+            .nav-links {
+              flex-direction: column;
+              position: absolute;
+              top: 100%;
+              left: 0;
+              width: 100%;
+              background-color: white;
+              box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+              z-index: 1;
+            }
+          }
+        `}
+      </style>
     </header>
   );
 };

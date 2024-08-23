@@ -29,7 +29,7 @@ function App() {
   },[isLoggedIn])
   
   return (
-    <div className="container">
+    <div >
       
       <Router>
       <Header isLoggedIn={isLoggedIn}/>

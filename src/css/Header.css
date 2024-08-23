@@ -1,0 +1,24 @@
+.Header {
+  display: flex;
+  align-items: center;
+  padding: 10px 0px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
+  background-color: #242a35;
+}
+
+.Header .searchInput {
+        
+    max-width: 400px;
+    padding: 0.5rem;
+    border-radius: 10px;
+    
+    outline: none;
+    margin-bottom: 0px;
+    height: 50px;
+}
+
+
+.Header .headerLinks {
+    text-decoration: none;
+}
