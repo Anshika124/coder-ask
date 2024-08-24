@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';import { localDBUrl } from '../controller/URLManager'
+import axios from 'axios';
+import { localDBUrl } from '../controller/URLManager'
 import Question from '../components/Question';
 import Loading from '../components/Loading';
 import '../css/Home.css';

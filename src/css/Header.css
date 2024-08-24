@@ -3,8 +3,10 @@
   align-items: center;
   padding: 10px 0px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  position: relative;
+  position: fixed;
+  width: 100vw;
   background-color: #242a35;
+
 }
 
 .Header .searchInput {
