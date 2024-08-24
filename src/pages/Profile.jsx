@@ -10,6 +10,7 @@ import QuestionList from '../components/QuestionList';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLinkedin, faGithub, faTwitter } from '@fortawesome/free-brands-svg-icons';
 import AnswerList from '../components/AnswerList';
+import { useNavigate } from 'react-router-dom';
 
 const socialMediaIcons = {
   linkedin: faLinkedin,
@@ -20,6 +21,8 @@ const socialMediaIcons = {
 const Profile = () => {
   const [profile, setProfile] = useState(null);
   const [typeClicked, setTypeClicked] = useState('question');
+
+  const Navigate = useNavigate();
 
   const handleButtonController = (buttonType) => {
     setTypeClicked(buttonType);
@@ -37,6 +40,8 @@ const Profile = () => {
         return <Note notes={profile.savedNotes} />;
       case 'editProfile':
         return <EditProfile UserProfile={profile} setProfileData={setProfile} />;
+      case 'signout':
+        Navigate('/signout')
       default:
         return null;
     }
@@ -92,6 +97,7 @@ const Profile = () => {
               <button className="secondary" onClick={() => handleButtonController('bookmark')}>Bookmarks</button>
               <button className="secondary" onClick={() => handleButtonController('note')}>Notes</button>
               <button className="outline" onClick={() => handleButtonController('editProfile')}>Edit Profile</button>
+              <button className="outline contrast" onClick={() => handleButtonController('signout')}>Sign Out</button>
             </div>
           </div>
         </div>
