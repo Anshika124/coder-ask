@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import useWindowDimensions from './UseWindowDimensions';
 import '@picocss/pico/css/pico.min.css';
 import { logoUrl } from '../controller/URLManager';
+import logo from '../assets/logo.png'
 import '../css/Header.css';
 
 
@@ -33,13 +34,13 @@ const Header = ({ isLoggedIn }) => {
       <div style={{ flex: 0.5, display: 'flex', justifyContent: 'center' }}>
         <Link to="/">
           {/* <span>BugSolved</span> */}
-          <img src={logoUrl} alt="Logo" style={{ height: '40px' }} />
+          <img src={logo} alt="Logo" style={{ height: '50px' }} />
         </Link>
       </div>
 
       <nav style={{ flex: 1, display: menuOpen ? 'flex' : 'none', justifyContent: 'center', gap: '2rem' }} className="nav-links">
-        <Link className='headerLinks' to="/questions" onClick={() => { setMenuOpen(false) }}>Questions</Link>
-        <Link className='headerLinks' to="/ask" onClick={() => { setMenuOpen(false) }}>Ask</Link>
+        <Link className='headerLinks' to="/questions" onClick={() => {  setMenuOpen(width>640) }}>Questions</Link>
+        <Link className='headerLinks' to="/ask" onClick={() => { setMenuOpen(width > 640) }}>Ask</Link>
       </nav>
       <div style={{ flex: 2, display: 'flex', justifyContent: 'center' }}>
         <input
