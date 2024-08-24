@@ -34,7 +34,7 @@ const Header = ({ isLoggedIn }) => {
       <div style={{ flex: 0.5, display: 'flex', justifyContent: 'center' }}>
         <Link to="/">
           {/* <span>BugSolved</span> */}
-          <img src={logo} alt="Logo" style={{ height: '50px' }} />
+          <img src={logo} alt="Logo" style={{ height: '40px' }} />
         </Link>
       </div>
 
