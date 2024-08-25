@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { convert } from 'html-to-text';
 
 const Answer = ({ answer }) => {
   return (
@@ -10,7 +11,7 @@ const Answer = ({ answer }) => {
       borderRadius: '20px'
     }}>
       <h2>{answer.answerFor.title}</h2>
-      <p><strong>Question Description:</strong> {answer.answerFor.description}</p>
+      <p><strong>Question Description:</strong> {convert(answer.answerFor.description)}</p>
       <p><strong>Answer:</strong> {answer.description}</p>
       <p><strong>Answered On:</strong> {new Date(answer.answeredOn).toLocaleString()}</p>
       <p><strong>Upvotes:</strong> {answer.upvotesList.length}</p>

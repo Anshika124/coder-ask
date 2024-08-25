@@ -11,6 +11,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLinkedin, faGithub, faTwitter } from '@fortawesome/free-brands-svg-icons';
 import AnswerList from '../components/AnswerList';
 import { useNavigate } from 'react-router-dom';
+import '../css/Profile.css'
 
 const socialMediaIcons = {
   linkedin: faLinkedin,
@@ -68,8 +69,8 @@ const Profile = () => {
 
   return (
     <div className="container py-100">
-      <div className="grid" style={{ gridTemplateColumns: "25% 75%" }}>
-        <div className="column" style={{ maxWidth: '250px' }}>
+      <div className="grid profile" >
+        <div className="column" style={{ textAlign: 'center' }}>
           <div className="profile-sidebar">
             <img
               src={profile.profilePicture || profileUrl}
@@ -77,7 +78,7 @@ const Profile = () => {
               className="profile-picture"
             />
             <h2>{profile.userId.fullName}</h2>
-            <h3>{profile.userId.userName}</h3>
+            <h3>{'@'+profile.userId.userName}</h3>
             <p>{profile.bio}</p>
             <div className="social-media-links">
               {Object.entries(profile.socialMediaLinks).map(([platform, url]) => {

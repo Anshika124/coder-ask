@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { localDBUrl } from '../controller/URLManager'
 import Question from './Question';
+import '../css/QuestionList.css';
 
 function QuestionList({userId}) {
 
@@ -21,7 +22,7 @@ function QuestionList({userId}) {
     },[])
 
   return (
-    <div className="container" style={{ padding: '2rem', maxWidth: '600px', margin: 'auto', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
+    <div className="container profile-question-list">
       <header className="header">
         <h1>Questions</h1>
       </header>
