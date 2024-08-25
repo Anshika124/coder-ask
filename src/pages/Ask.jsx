@@ -62,8 +62,8 @@ function Ask() {
   };
 
   return (
-    <div style={{ padding: '20px' }}>
-      <div style={{ maxWidth: '770px', margin: '0 auto' }}>
+    <div className='py-100 container Ask'>
+      <div>
         <input
           type='text'
           placeholder='Title'

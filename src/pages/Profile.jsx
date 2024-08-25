@@ -67,7 +67,7 @@ const Profile = () => {
   }
 
   return (
-    <div className="container">
+    <div className="container py-100">
       <div className="grid" style={{ gridTemplateColumns: "25% 75%" }}>
         <div className="column" style={{ maxWidth: '250px' }}>
           <div className="profile-sidebar">

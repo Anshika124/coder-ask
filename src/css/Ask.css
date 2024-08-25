@@ -1,3 +1,9 @@
+
+.Ask {
+  width: 100%;
+}
+
+
 .tagContainer .rti--container {
   width: 100%;
   background: #1c212c;
@@ -5,5 +11,11 @@
 
 .tagContainer .rti--container .rti--tag{
   background: #445261;
+}
+
+@media only screen and (min-width: 769px)  {
+  .Ask {
+    width: 60%;
+  }
 }
 

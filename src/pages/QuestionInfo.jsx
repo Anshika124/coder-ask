@@ -162,7 +162,7 @@ const QuestionInfo = () => {
   }
 
   return (
-    <div className="container">
+    <div className="container py-100">
       <article className="question-detail" style={{ display: "flex" }}>
         <div
           className="vote-buttons"

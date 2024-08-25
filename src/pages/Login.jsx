@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import '@picocss/pico/css/pico.min.css';
 import { localDBUrl } from '../controller/URLManager';
 import Loading from '../components/Loading';
+import '../css/Login.css';
 
 
 const Login = ({setIsLoggedIn}) => {
@@ -56,10 +57,10 @@ const Login = ({setIsLoggedIn}) => {
   }
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+    <div className='container login py-100'>
       {
         
-        <div style={{ padding: '2rem', borderRadius: '8px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', maxWidth: '400px', width: '100%' }}>
+        <div className='main' style={{ borderRadius: '8px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
         <header className="header">
           <h1>Login</h1>
         </header>
