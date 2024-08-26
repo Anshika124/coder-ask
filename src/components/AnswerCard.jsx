@@ -87,8 +87,7 @@ function AnswerCard({ answer, setLoading }) {
             }
         };
         fetchAnswerData();
-    }, [answer, local, ]);
-
+    }, [answer]);
     return (
         <div key={answer._id} style={{
             display: 'flex',
@@ -118,7 +117,7 @@ function AnswerCard({ answer, setLoading }) {
                                 ref={newAnswerRef}
                                 style={{ border: '2px solid grey', padding: '5px', outline: 'none' }}
                             >
-                                {answer.description}
+                                {description}
                             </p>
                             <button onClick={handleAnswerUpdate}>Update</button>
                         </>
