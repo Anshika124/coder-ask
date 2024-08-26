@@ -93,7 +93,7 @@ function EditAsk() {
   }
 
   return (
-    <div style={{ padding: '20px' }}>
+    <div className='py-100 container Ask'>
       <div style={{ maxWidth: '770px', margin: '0 auto' }}>
         <input
           type='text'

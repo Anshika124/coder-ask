@@ -33,8 +33,7 @@ function Search() {
     }
 
     return (
-        <div className="container" style={{
-            padding: '2rem',
+        <div className="container py-100" style={{
             maxWidth: '70vw',
             margin: 'auto',
             boxShadow: 'rgba(0, 0, 0, 0.1) 0px 4px 8px'

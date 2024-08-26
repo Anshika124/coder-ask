@@ -5,11 +5,13 @@ import '@picocss/pico/css/pico.min.css';
 import { logoUrl } from '../controller/URLManager';
 import logo from '../assets/logo.png'
 import '../css/Header.css';
+import { getLocal } from '../controller/ProjectData';
 
 
 const Header = ({ isLoggedIn }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const Navigate = useNavigate();
+  const local = getLocal();
 
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
@@ -40,7 +42,7 @@ const Header = ({ isLoggedIn }) => {
 
       <nav style={{ flex: 1, display: menuOpen ? 'flex' : 'none', justifyContent: 'center', gap: '2rem' }} className="nav-links">
         <Link className='headerLinks' to="/questions" onClick={() => {  setMenuOpen(width>640) }}>Questions</Link>
-        <Link className='headerLinks' to="/ask" onClick={() => { setMenuOpen(width > 640) }}>Ask</Link>
+        <Link className='headerLinks' to={local ? '/ask': '/login'} onClick={() => { setMenuOpen(width > 640) }}>Ask</Link>
       </nav>
       <div style={{ flex: 2, display: 'flex', justifyContent: 'center' }}>
         <input
