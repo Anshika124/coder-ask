@@ -139,18 +139,18 @@ const QuestionInfo = () => {
     try {
       Navigate(`/editask/${id}`);
 
-    } catch (err) {}
+    } catch (err) { }
   };
   const handleDelete = async () => {
     try {
-      
+
       let deleteQuestion = await axios.delete(
         localDBUrl + "/questions/deletequestion",
         { params: { questionId: id } }
       );
       console.log(deleteQuestion);
       Navigate("/");
-    } catch (err) {}
+    } catch (err) { }
   };
 
   if (loading) {
@@ -223,13 +223,15 @@ const QuestionInfo = () => {
             ) : (
               <button
                 onClick={() => {
-                  setEnableAnswer(!enableAnswer);
+                  local ?
+                    setEnableAnswer(!enableAnswer)
+                    : alert("Please login to add answer.")
                 }}
               >
                 Add Answer
               </button>
             )}
-            {local && question.postedBy._id == local._id && !enableAnswer? (
+            {local && question.postedBy._id == local._id && !enableAnswer ? (
               <>
                 <button
                   onClick={handleEdit}
@@ -252,7 +254,7 @@ const QuestionInfo = () => {
       </article>
       <div style={{ display: "flex", flexDirection: "column" }}>
         {question.answersList.length > 0 ? (
-          question.answersList.map((answer) => <AnswerCard answer={answer} setLoading={setLoading}/>)
+          question.answersList.map((answer) => <AnswerCard answer={answer} setLoading={setLoading} />)
         ) : (
           <p>Not answered yet.</p>
         )}
