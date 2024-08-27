@@ -47,7 +47,7 @@ const Header = ({ isLoggedIn }) => {
       <div style={{ flex: 2, display: 'flex', justifyContent: 'center' }}>
         <input
           className='searchInput'
-          type="text"
+          type="search"
           placeholder="Search..."
           onKeyDown={handleKeyDown}
 

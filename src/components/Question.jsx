@@ -4,6 +4,8 @@ import { convert } from 'html-to-text';
 import moment from 'moment/moment';
 import { NavLink } from 'react-router-dom';
 import { localDBUrl } from '../controller/URLManager';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faDownLong, faReply, faUpDown, faUpLong } from '@fortawesome/free-solid-svg-icons';
 
 function Question({ question }) {
 
@@ -36,20 +38,30 @@ function Question({ question }) {
                 // borderRadius: '20px',
                 // marginBottom: '25px'
             }}>
+                
 
                 <h3>{question.title}</h3>
                 <div style={{ marginBottom: '10px' }}>
                     {
                         question.tags.map((tag, index) => {
-                            return <span key={index} style={{ background: '#007ebd', marginRight: '5px', borderRadius: '10px', padding: '5px 8px', textAlign: 'center' }}>{tag}</span>
+                            return <span key={index} style={{
+                                background: '#72727245',
+                                marginRight: '10px',
+                                borderRadius: '5px',
+                                padding: '4px 8px',
+                                textAlign: 'center',
+                                fontSize: '1rem',
+                                border: '1px solid #80808066',
+                                color: '#a6a6a6'
+                             }}>{tag}</span>
                         })
                     }
                 </div>
                 <p style={{ color: 'grey' }}>{String(question.postedBy.userName)} ● {moment(new Date(question.postedOn)).fromNow()}</p>
                 <div> {desc}</div>
                 <div style={{ paddingTop: '15px', display: 'flex' }}>
-                    <p style={{ paddingRight: '10px' }}><strong>Votes:</strong> {voteCount}</p>
-                    <p><strong>Answered:</strong> {question.answersList.length}</p>
+                    <p style={{ paddingRight: '20px' }}><img width="25" height="25" src="https://img.icons8.com/fluency/48/sort-up.png" alt="sort-up" /> {voteCount}</p>
+                    <p><img width="25" height="25" src="https://img.icons8.com/color/48/chat--v1.png" alt="chat--v1" /> {question.answersList.length}</p>
                 </div>
 <hr/>
             </div>

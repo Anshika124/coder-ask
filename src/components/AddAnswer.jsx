@@ -27,7 +27,7 @@ function AddAnswer({setEnableAnswer, questionId, setLoading}) {
       <div style={{
         display: 'flex',
         gap: '10px',
-        width: '25%'
+        width: '200px'
       }}>
         <button type="reset" onClick={()=>{setEnableAnswer(false)}}>Cancel</button>
         <button type="submit" disabled={description===""}>Post</button>
