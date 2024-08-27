@@ -143,6 +143,9 @@ const QuestionInfo = () => {
   };
   const handleDelete = async () => {
     try {
+      let user_reponse = window.confirm("Are you sure you want to delete?");
+      if (!user_reponse) 
+      { return; }
 
       let deleteQuestion = await axios.delete(
         localDBUrl + "/questions/deletequestion",

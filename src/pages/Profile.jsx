@@ -78,18 +78,18 @@ const Profile = () => {
               className="profile-picture"
             />
             <h2>{profile.userId.fullName}</h2>
-            <h3>{'@'+profile.userId.userName}</h3>
+            <h5>{'@'+profile.userId.userName}</h5>
             <p>{profile.bio}</p>
-            <div className="social-media-links">
+            <p className="social-media-links" >
               {Object.entries(profile.socialMediaLinks).map(([platform, url]) => {
                 const icon = socialMediaIcons[platform];
                 return icon && url ? (
                   <a href={url} target="_blank" rel="noopener noreferrer" key={platform}>
-                    <FontAwesomeIcon icon={icon} size="2x" />
+                    <FontAwesomeIcon icon={icon}  />
                   </a>
                 ) : null;
               })}
-            </div>
+            </p>
             <p>{profile.questionsList.length} Questions Asked</p>
             <p>{profile.answersList.length} Answers Given</p>
             <div className="button-group" style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>

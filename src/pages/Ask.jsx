@@ -89,7 +89,7 @@ function Ask() {
         </div>
         <div ref={quillRef} style={{ height: '300px' }} />
         <button onClick={handleSubmit} style={{
-          marginTop: '10px',
+          margin: '20px 0px',
         }}>Ask</button>
       </div>
     </div>

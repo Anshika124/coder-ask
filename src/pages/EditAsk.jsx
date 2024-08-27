@@ -118,7 +118,7 @@ function EditAsk() {
           />
         </div>
         <div ref={quillRef} style={{ height: '300px' }} />
-        <button onClick={handleSubmit} style={{ marginTop: '10px' }}>Update</button>
+        <button onClick={handleSubmit} style={{ margin: '20px 0px' }}>Update</button>
       </div>
     </div>
   );

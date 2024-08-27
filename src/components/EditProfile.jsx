@@ -90,7 +90,6 @@ const EditProfile = ({UserProfile, setProfileData}) => {
               name="bio"
               value={profile.bio}
               onChange={handleChange}
-              required
             ></textarea>
           </div>
           <div className="form-group">

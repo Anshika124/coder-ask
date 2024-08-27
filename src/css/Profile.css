@@ -2,6 +2,15 @@
   grid-template-columns: none;
 }
 
+.social-media-links {
+  font-size: 1.5rem;
+}
+
+.social-media-links a {
+  padding: 0px 5px;
+  color: #539cc2;
+}
+
 @media only screen and (min-width: 769px) {
   .profile {
     grid-template-columns: 25% 75%;
