@@ -33,8 +33,8 @@ const Header = ({ isLoggedIn }) => {
 
   return (
     <header className="Header">
-      <div style={{ flex: 0.5, display: 'flex', justifyContent: 'center' }}>
-        <Link to="/">
+      <div style={{ flex: 0.5, display: 'flex', justifyContent: 'center' }}> 
+        <Link to="/" onClick={() => { setMenuOpen(width > 640) }}>
           {/* <span>BugSolved</span> */}
           <img src={logo} alt="Logo" style={{ height: '40px' }} />
         </Link>
@@ -50,17 +50,17 @@ const Header = ({ isLoggedIn }) => {
           type="search"
           placeholder="Search..."
           onKeyDown={handleKeyDown}
-
+          onClick={() => { setMenuOpen(width > 640) }}
         />
       </div>
       <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-end', alignItems: 'center', paddingRight: '6px' }}>
         <div style={{ flex: 2, display: 'flex', justifyContent: 'center', gap: '2rem' }}>
           {isLoggedIn ? (
             <>
-              <Link className='headerLinks' to="/profile">Profile</Link>
+              <Link className='headerLinks' to="/profile" onClick={() => { setMenuOpen(width > 640) }}>Profile</Link>
             </>
           ) : (
-            <Link className='headerLinks' to="/login">Login</Link>
+              <Link className='headerLinks' to="/login" onClick={() => { setMenuOpen(width > 640) }}>Login</Link>
           )}
         </div>
         <div className="menu-icon" onClick={toggleMenu} style={{ cursor: 'pointer', fontSize: '2rem' }}>

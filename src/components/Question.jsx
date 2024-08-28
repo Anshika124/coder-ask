@@ -34,9 +34,9 @@ function Question({ question }) {
         <NavLink to={`/question/${question.title.replace(/[?\/]/g, '')}/${question._id}`} style={{ textDecoration: 'none', color: 'white' }}>
             <div className="question" style={{
                 padding: '10px',
-                // background: '#22262e',
-                // borderRadius: '20px',
-                // marginBottom: '25px'
+                background: '#161b24',
+                borderRadius: '10px',
+                marginBottom: '15px'
             }}>
                 
 
@@ -63,7 +63,7 @@ function Question({ question }) {
                     <p style={{ paddingRight: '20px' }}><img width="25" height="25" src="https://img.icons8.com/fluency/48/sort-up.png" alt="sort-up" /> {voteCount}</p>
                     <p><img width="25" height="25" src="https://img.icons8.com/color/48/chat--v1.png" alt="chat--v1" /> {question.answersList.length}</p>
                 </div>
-<hr/>
+{/* <hr/> */}
             </div>
         </NavLink>
     );
