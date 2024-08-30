@@ -1,17 +1,21 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import axios from 'axios';
-import '@picocss/pico/css/pico.min.css';
-import { localDBUrl, profileUrl } from '../controller/URLManager';
-import Loading from '../components/Loading';
-import EditProfile from '../components/EditProfile';
-import Bookmark from '../components/Bookmark';
-import Note from '../components/Note';
-import QuestionList from '../components/QuestionList';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLinkedin, faGithub, faTwitter } from '@fortawesome/free-brands-svg-icons';
-import AnswerList from '../components/AnswerList';
-import { useNavigate } from 'react-router-dom';
-import '../css/Profile.css'
+import React, { useState, useEffect, useCallback } from "react";
+import axios from "axios";
+import "@picocss/pico/css/pico.min.css";
+import { localDBUrl, profileUrl } from "../controller/URLManager";
+import Loading from "../components/Loading";
+import EditProfile from "../components/EditProfile";
+import Bookmark from "../components/Bookmark";
+import Note from "../components/Note";
+import QuestionList from "../components/QuestionList";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faLinkedin,
+  faGithub,
+  faTwitter,
+} from "@fortawesome/free-brands-svg-icons";
+import AnswerList from "../components/AnswerList";
+import { useNavigate } from "react-router-dom";
+import "../css/Profile.css";
 
 const socialMediaIcons = {
   linkedin: faLinkedin,
@@ -21,7 +25,7 @@ const socialMediaIcons = {
 
 const Profile = () => {
   const [profile, setProfile] = useState(null);
-  const [typeClicked, setTypeClicked] = useState('question');
+  const [typeClicked, setTypeClicked] = useState("question");
 
   const Navigate = useNavigate();
 
@@ -31,18 +35,20 @@ const Profile = () => {
 
   const renderProfileContent = () => {
     switch (typeClicked) {
-      case 'question':
+      case "question":
         return <QuestionList userId={profile.userId} />;
-      case 'answer':
+      case "answer":
         return <AnswerList userId={profile.userId} />;
-      case 'bookmark':
+      case "bookmark":
         return <Bookmark bookmarks={profile.bookmarkedQuestions} />;
-      case 'note':
+      case "note":
         return <Note notes={profile.savedNotes} />;
-      case 'editProfile':
-        return <EditProfile UserProfile={profile} setProfileData={setProfile} />;
-      case 'signout':
-        Navigate('/signout')
+      case "editProfile":
+        return (
+          <EditProfile UserProfile={profile} setProfileData={setProfile} />
+        );
+      case "signout":
+        Navigate("/signout");
       default:
         return null;
     }
@@ -51,11 +57,13 @@ const Profile = () => {
   const fetchProfile = useCallback(async () => {
     try {
       const userId = JSON.parse(localStorage.getItem("userData"))._id;
-      const response = await axios.post(`${localDBUrl}/users/getuser`, { userId });
-      console.log(response)
+      const response = await axios.post(`${localDBUrl}/users/getuser`, {
+        userId,
+      });
+      console.log(response);
       setProfile(response.data);
     } catch (error) {
-      console.error('Error fetching profile data:', error);
+      console.error("Error fetching profile data:", error);
     }
   }, []);
 
@@ -69,43 +77,89 @@ const Profile = () => {
 
   return (
     <div className="container py-100">
-      <div className="grid profile" >
-        <div className="column" style={{ textAlign: 'center' }}>
+      <div className="grid profile">
+        <div className="column" style={{ textAlign: "center" }}>
           <div className="profile-sidebar">
-            <img
-              src={profile.profilePicture || profileUrl}
-              alt="Profile"
-              className="profile-picture"
-            />
-            <h2>{profile.userId.fullName}</h2>
-            <h5>{'@'+profile.userId.userName}</h5>
-            <p>{profile.bio}</p>
-            <p className="social-media-links" >
-              {Object.entries(profile.socialMediaLinks).map(([platform, url]) => {
-                const icon = socialMediaIcons[platform];
-                return icon && url ? (
-                  <a href={url} target="_blank" rel="noopener noreferrer" key={platform}>
-                    <FontAwesomeIcon icon={icon}  />
-                  </a>
-                ) : null;
-              })}
+            <div className="profile-info">
+              <div>
+                <img
+                  src={profile.profilePicture || profileUrl}
+                  alt="Profile"
+                  className="profile-picture"
+                />
+              </div>
+              <div className="profile-info-right">
+                <div className="fullname">{profile.userId.fullName}</div>
+                <div className="username">{profile.userId.userName}</div>
+              </div>
+            </div>
+
+            <p className="profile-bio">{profile.bio}</p>
+            <p className="social-media-links"> Follow me on:
+              {Object.entries(profile.socialMediaLinks).map(
+                ([platform, url]) => {
+                  const icon = socialMediaIcons[platform];
+                  return icon && url ? (
+                    <a
+                      href={url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      key={platform}
+                    >
+                      <FontAwesomeIcon icon={icon} />
+                    </a>
+                  ) : null;
+                }
+              )}
             </p>
-            <p>{profile.questionsList.length} Questions Asked</p>
-            <p>{profile.answersList.length} Answers Given</p>
-            <div className="button-group" style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
-              <button className="secondary" onClick={() => handleButtonController('question')}>Questions</button>
-              <button className="secondary" onClick={() => handleButtonController('answer')}>Answers</button>
-              <button className="secondary" onClick={() => handleButtonController('bookmark')}>Bookmarks</button>
-              <button className="secondary" onClick={() => handleButtonController('note')}>Notes</button>
-              <button className="outline" onClick={() => handleButtonController('editProfile')}>Edit Profile</button>
-              <button className="outline contrast" onClick={() => handleButtonController('signout')}>Sign Out</button>
+            <div className="line"></div>
+            {/* <p>{profile.questionsList.length} Questions Asked</p>
+            <p>{profile.answersList.length} Answers Given</p> */}
+            <div
+              className="button-group"
+              style={{ display: "flex", flexDirection: "column", gap: "5px" }}
+            >
+              <button
+                className="profile-buttons"
+                onClick={() => handleButtonController("question")}
+              >
+                Questions ({profile.questionsList.length})
+              </button>
+              <button
+                className="profile-buttons"
+                onClick={() => handleButtonController("answer")}
+              >
+                Answers ({profile.answersList.length})
+              </button>
+              <button
+                className="profile-buttons"
+                onClick={() => handleButtonController("bookmark")}
+              >
+                Bookmarks
+              </button>
+              <button
+                className="profile-buttons"
+                onClick={() => handleButtonController("note")}
+              >
+                Notes
+              </button>
+              <button
+                className="outline"
+                onClick={() => handleButtonController("editProfile")}
+              >
+                Edit Profile
+              </button>
+              <button
+                className="outline contrast"
+                onClick={() => handleButtonController("signout")}
+              >
+                Sign Out
+              </button>
             </div>
           </div>
         </div>
         <div className="column">
-          <div className="profile-content">
-            {renderProfileContent()}
-          </div>
+          <div className="profile-content">{renderProfileContent()}</div>
         </div>
       </div>
     </div>
