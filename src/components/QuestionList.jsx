@@ -22,7 +22,7 @@ function QuestionList({userId}) {
     },[])
 
   return (
-    <div className="container profile-question-list">
+    <div className="profile-question-list">
       <header className="header">
         <h1>Questions</h1>
       </header>
