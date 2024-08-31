@@ -143,18 +143,21 @@ const Profile = () => {
               >
                 Notes
               </button>
-              <button
-                className="outline"
-                onClick={() => handleButtonController("editProfile")}
-              >
-                Edit Profile
-              </button>
-              <button
-                className="outline contrast"
-                onClick={() => handleButtonController("signout")}
-              >
-                Sign Out
-              </button>
+              <div className="line"></div>
+              <div className="profile-action-buttons"> 
+                <button
+                  className="outline"
+                  onClick={() => handleButtonController("editProfile")}
+                >
+                  Edit Profile
+                </button>
+                <button
+                  className="outline contrast"
+                  onClick={() => handleButtonController("signout")}
+                >
+                  Sign Out
+                </button>
+              </div>
             </div>
           </div>
         </div>

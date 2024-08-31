@@ -33,7 +33,7 @@ function Question({ question }) {
     return (
         <NavLink to={`/question/${question.title.replace(/[?\/]/g, '')}/${question._id}`} style={{ textDecoration: 'none', color: 'white' }}>
             <div className="question" style={{
-                padding: '10px',
+                padding: '10px 20px',
                 background: '#161b24',
                 borderRadius: '10px',
                 marginBottom: '15px'
@@ -51,14 +51,13 @@ function Question({ question }) {
                                 padding: '4px 8px',
                                 textAlign: 'center',
                                 fontSize: '1rem',
-                                border: '1px solid #80808066',
                                 color: '#a6a6a6'
                              }}>{tag}</span>
                         })
                     }
                 </div>
-                <p style={{ color: 'grey' }}>{String(question.postedBy.userName)} ● {moment(new Date(question.postedOn)).fromNow()}</p>
-                <div> {desc}</div>
+                <p style={{ color: 'grey' }}>{String(question.postedBy.userName)} • {moment(new Date(question.postedOn)).fromNow()}</p>
+                <div style={{ color: '#c2c7d0' }}> {desc}</div>
                 <div style={{ paddingTop: '15px', display: 'flex' }}>
                     <p style={{ paddingRight: '20px' }}><img width="25" height="25" src="https://img.icons8.com/fluency/48/sort-up.png" alt="sort-up" /> {voteCount}</p>
                     <p><img width="25" height="25" src="https://img.icons8.com/color/48/chat--v1.png" alt="chat--v1" /> {question.answersList.length}</p>
