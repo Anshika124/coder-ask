@@ -135,14 +135,14 @@ const Profile = () => {
                 className="profile-buttons"
                 onClick={() => handleButtonController("bookmark")}
               >
-                Bookmarks
+                Bookmarks ({profile.bookmarkedQuestions.length})
               </button>
-              <button
+              {/* <button
                 className="profile-buttons"
                 onClick={() => handleButtonController("note")}
               >
                 Notes
-              </button>
+              </button> */}
               <div className="line"></div>
               <div className="profile-action-buttons"> 
                 <button

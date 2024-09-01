@@ -14,9 +14,20 @@ import {
 
 function Question({ question }) {
   let descriptionPreview = convert(question.description);
-  let desc = descriptionPreview.split(" ").slice(0, 15).join(" ");
-  if (desc.length > 150) {
-    desc = desc.slice(0, 150);
+  let word_list = descriptionPreview.split(" ").slice(0, 15)
+  let desc = word_list.join(" ");
+  // if (desc.length > 150) {
+  //   desc = desc.slice(0, 150);
+  // }
+  if (word_list.length>=15)
+  {
+    desc += "..."
+  }
+  else{
+    if (desc.length > 150) {
+      desc = desc.slice(0, 150);
+      desc += "..."
+    }
   }
 
   const [voteCount, setVoteCount] = useState(0);

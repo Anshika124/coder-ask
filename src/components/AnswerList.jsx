@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';import { localDBUrl } from '../controller/URLManager'
 import Answer from './Answer';
+import '../css/AnswerList.css';
 
 function AnswerList({userId}) {
 
@@ -20,7 +21,7 @@ function AnswerList({userId}) {
     },[])
 
   return (
-    <div className="" style={{ maxWidth: '600px', margin: 'auto', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
+    <div className="AnswerList-container" style={{  margin: 'auto', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
       <header className="header">
         <h1>Answers</h1>
       </header>
