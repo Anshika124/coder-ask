@@ -12,7 +12,7 @@ function AnswerList({userId}) {
             try {
                 const res = await axios.get(localDBUrl+'/answers/answerlistofuser', { params: { userId: userId._id } });
                 setAnswerList(res.data);
-                console.log(res);
+                // console.log(res);
             }
             catch (e) {
             }

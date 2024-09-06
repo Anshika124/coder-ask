@@ -50,7 +50,7 @@ function AnswerCard({ answer, setLoading }) {
                 localDBUrl + "/answers/deleteanswer",
                 { params: { answerId: answer._id } }
             );
-            console.log(deleteAnswer);
+            // console.log(deleteAnswer);
             setLoading(false)
             
         } catch (err) {

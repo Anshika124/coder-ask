@@ -16,7 +16,7 @@ const Header = ({ isLoggedIn }) => {
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
       const query = event.target.value;
-      console.log('Search query:', query);
+      // console.log('Search query:', query);
       Navigate('/search?q=' + query);
     }
   };

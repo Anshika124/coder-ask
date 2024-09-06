@@ -60,7 +60,7 @@ const Profile = () => {
       const response = await axios.post(`${localDBUrl}/users/getuser`, {
         userId,
       });
-      console.log(response);
+      // console.log(response);
       setProfile(response.data);
     } catch (error) {
       console.error("Error fetching profile data:", error);

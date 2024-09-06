@@ -40,7 +40,7 @@ function Ask() {
   };
 
   const handleSubmit = async() => {
-    console.log('hello');
+    
     try {
       let res = await axios.post(localDBUrl+"/questions/addquestion", {
         title: title,
@@ -50,10 +50,10 @@ function Ask() {
       });
       
       if (res.data.success) {
-        console.log(res.data)
+        // console.log(res.data)
         Navigate('/')
       } else {
-        console.log(res.data.message);
+        // console.log(res.data.message);
       }
     } catch (error) {
       // setErrorMessage("Login failed. Please check your credentials and try again.");

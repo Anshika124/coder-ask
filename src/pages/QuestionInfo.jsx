@@ -48,7 +48,7 @@ const QuestionInfo = () => {
         );
 
         if (upd.length > 0) {
-          console.log("reached " + upd[0].isUpvote);
+          // console.log("reached " + upd[0].isUpvote);
           if (upd[0].isUpvote) {
             setVoteStatus("upvote");
           } else {
@@ -64,7 +64,7 @@ const QuestionInfo = () => {
   }, [id, loading]);
 
   const handleUpvote = async () => {
-    console.log(local);
+    // console.log(local);
     if (!local) {
       alert("Please Login to vote");
       return;
@@ -108,28 +108,28 @@ const QuestionInfo = () => {
 
     if (bookmarkEnabled == false) {
       try {
-        console.log("reached if");
+        
         let res = await axios.post(
           localDBUrl + "/questions/addbookmarkquestion",
           { questionId: id, userId: local._id }
         );
-        console.log(res.data);
+        // console.log(res.data);
         setBookmarkEnabled(true);
       } catch (err) {
-        console.log("not reached");
+        
         console.log(err);
       }
     } else if (bookmarkEnabled == true) {
       try {
-        console.log("reached else");
+        
         let res = await axios.post(
           localDBUrl + "/questions/removebookmarkquestion",
           { questionId: id, userId: local._id }
         );
-        console.log(res.data);
+        // console.log(res.data);
         setBookmarkEnabled(false);
       } catch (err) {
-        console.log("not reached");
+        
         console.log(err);
       }
     }
@@ -151,7 +151,7 @@ const QuestionInfo = () => {
         localDBUrl + "/questions/deletequestion",
         { params: { questionId: id } }
       );
-      console.log(deleteQuestion);
+      // console.log(deleteQuestion);
       Navigate("/");
     } catch (err) { }
   };

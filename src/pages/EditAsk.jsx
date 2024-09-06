@@ -57,7 +57,7 @@ function EditAsk() {
       if (res.data.success) {
         navigate(`/question/${title}/${id}`);
       } else {
-        console.log("msg"+res.data.message);
+        // console.log("msg"+res.data.message);
       }
     } catch (error) {
       console.error(error);

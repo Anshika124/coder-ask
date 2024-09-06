@@ -13,7 +13,6 @@ function QuestionList({userId}) {
             try {
                 const res = await axios.get(localDBUrl+'/questions/questionlistofuser', { params: { userId: userId._id } });
                 setQuestionList(res.data);
-                console.log(res);
             }
             catch (e) {
             }

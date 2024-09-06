@@ -17,7 +17,7 @@ function Search() {
                 setLoading(true);
                 const result = await axios.get(localDBUrl + '/questions/searchquestion', {params:{query: query}});
                 setQuestionList(result.data);
-                console.log(result);
+                // console.log(result);
                 setLoading(false);
             }
             catch (err) {

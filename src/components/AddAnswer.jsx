@@ -7,12 +7,11 @@ function AddAnswer({setEnableAnswer, questionId, setLoading}) {
   const [description, setDescription] = useState("");
   const handleSubmit = async(e) => {
     e.preventDefault();
-    console.log(description);
     try {
       
       setLoading(true);
       const answer = await axios.post(localDBUrl+"/answers/addAnswer", {answerFor: questionId , description: description, answeredBy:JSON.parse(localStorage.getItem('userData'))._id});
-      console.log(answer)
+      // console.log(answer)
       setEnableAnswer(false)
       setLoading(false);
     }
