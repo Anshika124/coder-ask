@@ -19,6 +19,10 @@ function App() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", "dark");
+  }, []);
+
 
   useEffect(() => {
     
