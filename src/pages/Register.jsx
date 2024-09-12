@@ -5,6 +5,7 @@ import ReactLoading from 'react-loading';
 import { isDebug, generateUser } from '../controller/ProjectData';
 import { localDBUrl } from '../controller/URLManager';
 import '../css/Login.css';
+import Loading from '../components/Loading';
 
 
 const Registration = ({ setIsLoggedIn }) => {
@@ -89,7 +90,7 @@ const Registration = ({ setIsLoggedIn }) => {
         <>
             <div className='container login py-100'>
                 
-                {loading ? <ReactLoading type={'spin'} color={'#ffffff'} height={'15%'} width={'15%'} /> : <div className='main' style={{ borderRadius: '8px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
+                {loading ? <Loading/> : <div className='main' style={{ borderRadius: '8px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
                     <header className="header">
                         <h1>Register</h1>
                     </header>

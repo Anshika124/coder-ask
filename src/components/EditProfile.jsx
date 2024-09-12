@@ -6,7 +6,7 @@ import { localDBUrl } from '../controller/URLManager';
 const EditProfile = ({UserProfile, setProfileData}) => {
   const [profile, setProfile] = useState(UserProfile);
   const [message, setMessage] = useState('');
-
+  const [errorMessageUsername, setErrorMessageUsername] = useState("");
   
 
   const handleChange = (e) => {
@@ -42,11 +42,20 @@ const EditProfile = ({UserProfile, setProfileData}) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setProfileData(null);
     try {
       const response = await axios.put(localDBUrl+'/users/editprofile', profile); 
-      setProfileData(response.data.value);
-      setMessage('Profile updated successfully!');
+      
+      if (response.data.value === "username") {
+        setErrorMessageUsername(response.data.message);
+        return;
+      }
+      else {
+        setProfileData(null);
+        setErrorMessageUsername("");
+        setProfileData(response.data.value);
+        setMessage('Profile updated successfully!');
+      }
+      
     } catch (error) {
       console.error('Error updating profile:', error);
       setMessage('Failed to update profile.');
@@ -83,6 +92,7 @@ const EditProfile = ({UserProfile, setProfileData}) => {
               required
             />
           </div>
+          {errorMessageUsername && <div className="error-message" style={{ color: 'red', marginBottom: '1rem' }}>{errorMessageUsername}</div>}
           <div className="form-group">
             <label htmlFor="bio">Bio</label>
             <textarea
