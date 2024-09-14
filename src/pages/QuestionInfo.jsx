@@ -208,8 +208,8 @@ const QuestionInfo = () => {
             {String(question.postedBy.userName)} ●{" "}
             {moment(new Date(question.postedOn)).fromNow()}
           </p>
-          <p>
-            <strong>Description:</strong> {parse(question.description)}
+          <p style={{wordBreak: 'break-all'}}>
+           {parse(question.description)}
           </p>
           {question.tags.length > 0 && (
             <p>
