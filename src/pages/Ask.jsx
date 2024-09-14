@@ -8,7 +8,9 @@ import 'quill/dist/quill.snow.css';
 import '../css/Ask.css'
 
 function Ask() {
-  const { quill, quillRef } = useQuill();
+  // const placeholder = "Add Description of the question...";
+  const placeholder = "";
+  const { quill, quillRef } = useQuill({ placeholder });
   const [title, setTitle] = useState('');
   const [tags, setTags] = useState([]);  // Initialize as an empty array
   const [tagInput, setTagInput] = useState('');
@@ -39,16 +41,16 @@ function Ask() {
     }
   };
 
-  const handleSubmit = async() => {
-    
+  const handleSubmit = async () => {
+
     try {
-      let res = await axios.post(localDBUrl+"/questions/addquestion", {
+      let res = await axios.post(localDBUrl + "/questions/addquestion", {
         title: title,
         tags: tags,
         description: quill.root.innerHTML,
         postedBy: JSON.parse(localStorage.getItem("userData"))._id
       });
-      
+
       if (res.data.success) {
         // console.log(res.data)
         Navigate('/')
@@ -58,7 +60,7 @@ function Ask() {
     } catch (error) {
       // setErrorMessage("Login failed. Please check your credentials and try again.");
       console.error(error);
-    } 
+    }
   };
 
   return (
@@ -66,29 +68,31 @@ function Ask() {
       <div>
         <input
           type='text'
-          placeholder='Title'
+          placeholder='Add your question title...'
           value={title}
           onChange={handleTitleChange}
           style={{
             width: '100%',
             padding: '10px',
             marginBottom: '10px',
-            fontSize: '16px',
-            border: '1px solid #ccc',
-            borderRadius: '4px'
+            fontSize: '1.2rem',
+            outline: 'none',
+            border: 'none',
+            borderRadius: '4px',
+            color: '#c4c4c4'
           }}
         />
-        <div className='tagContainer' style={{ display: 'flex', flexWrap: 'wrap', gap: '5px', marginBottom: '10px', alignItems: 'center' }}>
-        <TagsInput
-        value={tags}
-        onChange={setTags}
+        <div className='tagContainer'>
+          <TagsInput
+            value={tags}
+            onChange={setTags}
 
-        name="fruits"
-        placeHolder="enter tags"
-      />
+            name="fruits"
+            placeHolder="enter tags"
+          />
         </div>
         <div ref={quillRef} style={{ height: '300px' }} />
-        <button onClick={handleSubmit} style={{
+        <button className='padding-btn-normal' onClick={handleSubmit} style={{
           margin: '20px 0px',
         }}>Ask</button>
       </div>

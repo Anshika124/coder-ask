@@ -2,15 +2,15 @@ import axios from 'axios'
 import React, { useState } from 'react'
 import { localDBUrl } from '../controller/URLManager'
 
-function AddAnswer({setEnableAnswer, questionId, setLoading}) {
+function AddAnswer({ setEnableAnswer, questionId, setLoading }) {
 
   const [description, setDescription] = useState("");
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      
+
       setLoading(true);
-      const answer = await axios.post(localDBUrl+"/answers/addAnswer", {answerFor: questionId , description: description, answeredBy:JSON.parse(localStorage.getItem('userData'))._id});
+      const answer = await axios.post(localDBUrl + "/answers/addAnswer", { answerFor: questionId, description: description, answeredBy: JSON.parse(localStorage.getItem('userData'))._id });
       // console.log(answer)
       setEnableAnswer(false)
       setLoading(false);
@@ -22,17 +22,17 @@ function AddAnswer({setEnableAnswer, questionId, setLoading}) {
 
   return (
     <form className="container" onSubmit={handleSubmit}>
-      <textarea onChange={(e)=>{setDescription(e.target.value)}}></textarea>
+      <textarea onChange={(e) => { setDescription(e.target.value) }}></textarea>
       <div style={{
         display: 'flex',
         gap: '10px',
         width: '200px'
       }}>
-        <button type="reset" onClick={()=>{setEnableAnswer(false)}}>Cancel</button>
-        <button type="submit" disabled={description===""}>Post</button>
+        <button className='padding-btn-normal' type="reset" onClick={() => { setEnableAnswer(false) }}>Cancel</button>
+        <button className='padding-btn-normal' type="submit" disabled={description === ""}>Post</button>
       </div>
     </form>
-    
+
   )
 }
 

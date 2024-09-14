@@ -8,3 +8,12 @@
 .py-100 {
     padding-top: 100px;
 }
+
+.padding-btn-normal{
+    padding: 5px 10px !important;
+}
+
+[role=button]
+{
+    background-color: transparent !important;
+}

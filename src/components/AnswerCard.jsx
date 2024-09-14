@@ -101,10 +101,10 @@ function AnswerCard({ answer, setLoading }) {
                 flexDirection: 'column',
                 alignItems: 'center',
                 marginRight: '20px'
-            }}>
-                <button className="upvote-button" onClick={handleUpvote} disabled={voteStatus === 'upvote'}>▲</button>
+            }}> 
+                <button className="padding-btn-normal" onClick={handleUpvote} disabled={voteStatus === 'upvote'}>▲</button>
                 <span>{upvotes}</span>
-                <button className="downvote-button" onClick={handleDownvote} disabled={voteStatus === 'downvote'}>▼</button>
+                <button className="padding-btn-normal" onClick={handleDownvote} disabled={voteStatus === 'downvote'}>▼</button>
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
                 <div style={{ width: '82%' }}>
@@ -119,14 +119,14 @@ function AnswerCard({ answer, setLoading }) {
                             >
                                 {description}
                             </p>
-                            <button onClick={handleAnswerUpdate}>Update</button>
+                            <button className="padding-btn-normal" onClick={handleAnswerUpdate}>Update</button>
                         </>
                         : <p>{description}</p>}
                 </div>
                 {answer.answeredBy._id === local._id && (
                     <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
-                        <button onClick={() => setAnswerEditable(true)}>Edit</button>
-                        <button onClick={handleAnswerDelete}>Delete</button>
+                        <button className="padding-btn-normal" onClick={() => setAnswerEditable(true)}>Edit</button>
+                        <button className="padding-btn-normal" onClick={handleAnswerDelete}>Delete</button>
                     </div>
                 )}
             </div>

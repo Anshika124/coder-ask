@@ -11,6 +11,7 @@ import { getLocal } from "../controller/ProjectData";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBookmark } from "@fortawesome/free-solid-svg-icons";
 
+
 const QuestionInfo = () => {
   const [question, setQuestion] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -108,7 +109,7 @@ const QuestionInfo = () => {
 
     if (bookmarkEnabled == false) {
       try {
-        
+
         let res = await axios.post(
           localDBUrl + "/questions/addbookmarkquestion",
           { questionId: id, userId: local._id }
@@ -116,12 +117,12 @@ const QuestionInfo = () => {
         // console.log(res.data);
         setBookmarkEnabled(true);
       } catch (err) {
-        
+
         console.log(err);
       }
     } else if (bookmarkEnabled == true) {
       try {
-        
+
         let res = await axios.post(
           localDBUrl + "/questions/removebookmarkquestion",
           { questionId: id, userId: local._id }
@@ -129,7 +130,7 @@ const QuestionInfo = () => {
         // console.log(res.data);
         setBookmarkEnabled(false);
       } catch (err) {
-        
+
         console.log(err);
       }
     }
@@ -144,8 +145,7 @@ const QuestionInfo = () => {
   const handleDelete = async () => {
     try {
       let user_reponse = window.confirm("Are you sure you want to delete?");
-      if (!user_reponse) 
-      { return; }
+      if (!user_reponse) { return; }
 
       let deleteQuestion = await axios.delete(
         localDBUrl + "/questions/deletequestion",
@@ -177,7 +177,7 @@ const QuestionInfo = () => {
           }}
         >
           <button
-            className="upvote-button"
+            className="upvote-button padding-btn-normal"
             onClick={handleUpvote}
             disabled={voteStatus == "upvote"}
           >
@@ -185,14 +185,14 @@ const QuestionInfo = () => {
           </button>
           <span>{upvotes}</span>
           <button
-            className="downvote-button"
+            className="downvote-button padding-btn-normal"
             onClick={handleDownvote}
             disabled={voteStatus == "downvote"}
           >
             ▼
           </button>
           <button
-            className="bookmark-button"
+            className="bookmark-button padding-btn-normal"
             style={{
               marginTop: "10px",
               backgroundColor: bookmarkEnabled ? "grey" : "transparent",
@@ -225,6 +225,7 @@ const QuestionInfo = () => {
               />
             ) : (
               <button
+                className="padding-btn-normal"
                 onClick={() => {
                   local ?
                     setEnableAnswer(!enableAnswer)

@@ -3,6 +3,14 @@
   width: 100%;
 }
 
+.tagContainer{
+  /* display: 'flex';
+  flex-wrap: 'wrap';
+  gap: '5px';
+  margin-bottom: '10px';
+  align-items: 'center'; */
+  display: none;
+}
 
 .tagContainer .rti--container {
   width: 100%;
@@ -11,6 +19,101 @@
 
 .tagContainer .rti--container .rti--tag{
   background: #445261;
+}
+
+.ql-container.ql-snow{
+  margin-top: 10px;
+  border: none;
+  background-color: #1c212c;
+}
+
+.ql-toolbar{
+  display: flex !important;
+  align-items: center;
+  justify-content: space-evenly;
+  background-color: gray;
+  border-radius: 5px;
+  border: 1px solid #b4b1b1;
+  flex-wrap: wrap;
+}
+
+.ql-toolbar .ql-formats{
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.ql-toolbar .ql-formats button{
+  margin-bottom: 0;
+}
+
+.ql-toolbar.ql-snow .ql-picker-label{
+  display: flex;
+}
+
+.ql-toolbar .ql-formats .ql-size .ql-picker-label{
+  padding: 0;
+  color: #373535;
+  font-family: 'Inter';
+  /* font-size: 0.8rem; */
+}
+
+.ql-toolbar .ql-formats .ql-header .ql-picker-label{
+  padding: 0;
+  color: #373535;
+  font-family: 'Inter';
+  font-size: 0.8rem;
+}
+
+.ql-snow .ql-picker-options{
+  background-color: #808080;   
+}
+
+.ql-snow .ql-icon-picker .ql-picker-item{
+  display: flex;
+}
+
+.ql-snow .ql-picker.ql-expanded .ql-picker-options{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  border-radius: 5px;
+  margin-top: 2px;
+  padding: 3px;
+}
+
+.ql-snow .ql-picker-options .ql-picker-item{
+  cursor: pointer;
+  padding-bottom: 5px;
+  padding-top: 5px;
+  width: 100%;
+  background-color: #a19d9d !important;
+  border: none;
+  display: flex;
+  align-items: center;
+  color: #373535;
+  font-family: 'Inter';
+}
+
+.ql-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-label{
+  color: #373535;
+}
+
+.ql-editor{
+  font-family: 'Inter';
+}
+
+.ql-editor::placeholder{
+  color: #c4c4c4;
+}
+
+.ql-snow .ql-color-picker{
+  display: none;
+}
+
+.ql-toolbar:nth-child(1){
+  display: none;
 }
 
 @media only screen and (min-width: 769px)  {
