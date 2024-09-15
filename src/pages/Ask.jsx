@@ -42,7 +42,7 @@ function Ask() {
   };
 
   const handleSubmit = async () => {
-
+    
     try {
       let res = await axios.post(localDBUrl + "/questions/addquestion", {
         title: title,
@@ -82,19 +82,20 @@ function Ask() {
             color: '#c4c4c4'
           }}
         />
+        
+        <div ref={quillRef} style={{ height: '300px' }} />
         <div className='tagContainer'>
           <TagsInput
             value={tags}
             onChange={setTags}
 
             name="fruits"
-            placeHolder="enter tags"
+            placeHolder="Add question tags..."
           />
         </div>
-        <div ref={quillRef} style={{ height: '300px' }} />
         <button className='padding-btn-normal' onClick={handleSubmit} style={{
           margin: '20px 0px',
-        }}>Ask</button>
+        }}>Ask Question</button>
       </div>
     </div>
   );

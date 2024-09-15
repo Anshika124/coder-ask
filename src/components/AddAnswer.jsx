@@ -21,15 +21,16 @@ function AddAnswer({ setEnableAnswer, questionId, setLoading }) {
   }
 
   return (
-    <form className="container" onSubmit={handleSubmit}>
+    <form style={{width:'100%'}} onSubmit={handleSubmit}>
       <textarea onChange={(e) => { setDescription(e.target.value) }}></textarea>
       <div style={{
         display: 'flex',
         gap: '10px',
-        width: '200px'
+        width: '100%',
+        justifyContent: 'end'
       }}>
         <button className='padding-btn-normal' type="reset" onClick={() => { setEnableAnswer(false) }}>Cancel</button>
-        <button className='padding-btn-normal' type="submit" disabled={description === ""}>Post</button>
+        <button className='padding-btn-normal' type="submit" disabled={description === ""} style={{width:'80px'}}>Post</button>
       </div>
     </form>
 

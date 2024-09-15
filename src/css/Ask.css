@@ -4,12 +4,15 @@
 }
 
 .tagContainer{
-  /* display: 'flex';
-  flex-wrap: 'wrap';
-  gap: '5px';
-  margin-bottom: '10px';
-  align-items: 'center'; */
-  display: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  align-items: center;
+  border: none !important;
+  outline: none !important;
+  /* display: none; */
 }
 
 .tagContainer .rti--container {

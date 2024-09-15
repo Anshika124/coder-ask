@@ -205,7 +205,7 @@ const QuestionInfo = () => {
         <div className="question-content" style={{ width: "100%" }}>
           <h1>{question.title}</h1>
           <p style={{ color: "grey" }}>
-            {String(question.postedBy.userName)} ●{" "}
+            {String(question.postedBy.userName)} ● {" "}
             {moment(new Date(question.postedOn)).fromNow()}
           </p>
           <p style={{wordBreak: 'break-all'}}>
@@ -216,47 +216,48 @@ const QuestionInfo = () => {
               <strong>Tags:</strong> {question.tags.join(", ")}
             </p>
           )}
-          <div style={{ display: "flex", gap: "5px" }}>
-            {enableAnswer ? (
-              <AddAnswer
-                setEnableAnswer={setEnableAnswer}
-                questionId={id}
-                setLoading={setLoading}
-              />
-            ) : (
-              <button
-                className="padding-btn-normal"
-                onClick={() => {
-                  local ?
-                    setEnableAnswer(!enableAnswer)
-                    : alert("Please login to add answer.")
-                }}
-              >
-                Add Answer
-              </button>
-            )}
-            {local && question.postedBy._id == local._id && !enableAnswer ? (
-              <>
-                <button
-                  onClick={handleEdit}
-                  style={{ background: "transparent", borderColor: "green" }}
-                >
-                  Edit
-                </button>
-                <button
-                  onClick={handleDelete}
-                  style={{ backgroundColor: "transparent", borderColor: "red" }}
-                >
-                  Delete
-                </button>
-              </>
-            ) : (
-              <></>
-            )}
-          </div>
+          
         </div>
       </article>
-      <div style={{ display: "flex", flexDirection: "column" }}>
+      <div style={{ display: "flex", gap: "7px", justifyContent: 'end', flexDirection:'row-reverse'}}>
+        {enableAnswer ? (
+          <AddAnswer
+            setEnableAnswer={setEnableAnswer}
+            questionId={id}
+            setLoading={setLoading}
+          />
+        ) : (
+          <button
+            className="padding-btn-normal"
+            onClick={() => {
+              local ?
+                setEnableAnswer(!enableAnswer)
+                : alert("Please login to add answer.")
+            }}
+          >
+            Add Answer
+          </button>
+        )}
+        {local && question.postedBy._id == local._id && !enableAnswer ? (
+          <>
+            <button
+              onClick={handleEdit}
+              style={{ background: "transparent", borderColor: "green" }}
+            >
+              Edit
+            </button>
+            <button
+              onClick={handleDelete}
+              style={{ backgroundColor: "transparent", borderColor: "red" }}
+            >
+              Delete
+            </button>
+          </>
+        ) : (
+          <></>
+        )}
+      </div>
+      <div style={{ display: "flex", flexDirection: "column", marginTop: '20px' }}>
         {question.answersList.length > 0 ? (
           question.answersList.map((answer) => <AnswerCard answer={answer} setLoading={setLoading} />)
         ) : (

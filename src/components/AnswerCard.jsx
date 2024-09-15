@@ -4,6 +4,8 @@ import moment from 'moment/moment';
 import { localDBUrl } from '../controller/URLManager';
 import { getLocal } from '../controller/ProjectData';
 import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash, faEdit } from "@fortawesome/free-solid-svg-icons";
 
 function AnswerCard({ answer, setLoading }) {
     const [upvotes, setUpvotes] = useState(0);
@@ -125,8 +127,11 @@ function AnswerCard({ answer, setLoading }) {
                 </div>
                 {answer.answeredBy._id === local._id && (
                     <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
-                        <button className="padding-btn-normal" onClick={() => setAnswerEditable(true)}>Edit</button>
-                        <button className="padding-btn-normal" onClick={handleAnswerDelete}>Delete</button>
+                        <button className="padding-btn-normal" style={{ background:'#034403', border:'none'}} onClick={() => setAnswerEditable(true)}><FontAwesomeIcon icon={faEdit} /></button>
+                        <button className="padding-btn-normal" style={{
+                            background: '#5a0a0a',
+                            border: 'none' }} 
+                        onClick={handleAnswerDelete}><FontAwesomeIcon icon={faTrash} /></button>
                     </div>
                 )}
             </div>
