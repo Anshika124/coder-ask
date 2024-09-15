@@ -55,14 +55,15 @@ function EditAsk() {
       });
 
       if (res.data.success) {
-        navigate(`/question/${title}/${id}`);
+       
+      navigate(`/question/${title.replace(/[?\/]/g, "")}/${id}`);
       } else {
         // console.log("msg"+res.data.message);
       }
     } catch (error) {
       console.error(error);
     }
-  };
+  };  
 
   useEffect(() => {
     const fetchQuestionInfo = async () => {
@@ -97,27 +98,31 @@ function EditAsk() {
       <div style={{ maxWidth: '770px', margin: '0 auto' }}>
         <input
           type='text'
-          placeholder='Title'
+          placeholder='Add question title'
           value={title}
           onChange={handleTitleChange}
           style={{
             width: '100%',
             padding: '10px',
             marginBottom: '10px',
-            fontSize: '16px',
-            border: '1px solid #ccc',
-            borderRadius: '4px'
+            fontSize: '1.2rem',
+            outline: 'none',
+            border: 'none',
+            borderRadius: '4px',
+            color: '#c4c4c4',
+            fontWeight: '500',
           }}
         />
+        
+        <div ref={quillRef} style={{ height: '300px' }} />
         <div className='tagContainer' style={{ display: 'flex', flexWrap: 'wrap', gap: '5px', marginBottom: '10px', alignItems: 'center' }}>
           <TagsInput
             value={tags}
             onChange={setTags}
             name="fruits"
-            placeHolder="enter tags"
+            placeHolder="Add question tags"
           />
         </div>
-        <div ref={quillRef} style={{ height: '300px' }} />
         <button onClick={handleSubmit} style={{ margin: '20px 0px' }}>Update</button>
       </div>
     </div>

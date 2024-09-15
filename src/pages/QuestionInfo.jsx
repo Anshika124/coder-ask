@@ -208,18 +208,35 @@ const QuestionInfo = () => {
             {String(question.postedBy.userName)} ● {" "}
             {moment(new Date(question.postedOn)).fromNow()}
           </p>
-          <p style={{wordBreak: 'break-all'}}>
-           {parse(question.description)}
+          <p style={{ wordBreak: 'break-all' }}>
+            {parse(question.description)}
           </p>
           {question.tags.length > 0 && (
-            <p>
-              <strong>Tags:</strong> {question.tags.join(", ")}
-            </p>
+            <div style={{ marginBottom: "10px" }}>
+              {question.tags.map((tag, index) => {
+                return (
+                  <span
+                    key={index}
+                    style={{
+                      background: "#72727245",
+                      marginRight: "10px",
+                      borderRadius: "5px",
+                      padding: "4px 8px",
+                      textAlign: "center",
+                      fontSize: "1rem",
+                      color: "#a6a6a6",
+                    }}
+                  >
+                    {tag}
+                  </span>
+                );
+              })}
+            </div>
           )}
-          
+
         </div>
       </article>
-      <div style={{ display: "flex", gap: "7px", justifyContent: 'end', flexDirection:'row-reverse'}}>
+      <div style={{ display: "flex", gap: "7px", justifyContent: 'end', flexDirection: 'row-reverse' }}>
         {enableAnswer ? (
           <AddAnswer
             setEnableAnswer={setEnableAnswer}

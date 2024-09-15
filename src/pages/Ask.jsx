@@ -68,7 +68,7 @@ function Ask() {
       <div>
         <input
           type='text'
-          placeholder='Add your question title...'
+          placeholder='Add question title'
           value={title}
           onChange={handleTitleChange}
           style={{
@@ -79,7 +79,8 @@ function Ask() {
             outline: 'none',
             border: 'none',
             borderRadius: '4px',
-            color: '#c4c4c4'
+            color: '#c4c4c4',
+            fontWeight: '500',
           }}
         />
         
@@ -90,7 +91,7 @@ function Ask() {
             onChange={setTags}
 
             name="fruits"
-            placeHolder="Add question tags..."
+            placeHolder="Add question tags"
           />
         </div>
         <button className='padding-btn-normal' onClick={handleSubmit} style={{
