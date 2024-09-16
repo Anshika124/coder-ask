@@ -14,6 +14,8 @@ const Registration = ({ setIsLoggedIn }) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
+    const [message, setMessage] = useState("");
+    const [confirmPasswordMessage, setConfirmPasswordMessage] = useState("");
 
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -40,9 +42,47 @@ const Registration = ({ setIsLoggedIn }) => {
         setShowConfirmPassword(!showConfirmPassword);
     };
 
+    const checkPasswordStrength = (password) => {
+        // Validate in order of priority
+        if (password.length < 8) {
+            setMessage('Password must be at least 8 characters long.');
+            return false;
+        }
+        if (!/[A-Z]/.test(password)) {
+            setMessage('Password must contain at least one uppercase letter.');
+            return false;
+        }
+        if (!/[a-z]/.test(password)) {
+            setMessage('Password must contain at least one lowercase letter.');
+            return false;
+        }
+        if (!/\d/.test(password)) {
+            setMessage('Password must contain at least one number.');
+            return false;
+        }
+        if (!/[@_.]/.test(password)) {
+            setMessage('Password must contain at least one special character.');
+            return false;
+        }
+
+        // If all checks pass
+        setMessage(''); // Clear message if the password is strong
+        return true;
+    };
+
 
     const handleRegister = async (e) => {
         e.preventDefault();
+        if (!checkPasswordStrength(password)) {
+            return;
+        }
+        setMessage('');
+        if (password !== confirmPassword){
+            console.log('Password');
+            setConfirmPasswordMessage('Confirm Password does not match')
+            return;
+        }
+        setConfirmPasswordMessage('');
         setLoading(true);
 
         let res = await axios.post(localDBUrl + "/users/register", {
@@ -157,6 +197,7 @@ const Registration = ({ setIsLoggedIn }) => {
                                     </button>
                                 </div>
                             </div>
+                            {message && <div className="error-message" style={{ color: 'red', marginBottom: '1rem' }}>{message}</div>}
                             <div className="form-group">
                                 <label htmlFor="confirm-password">Confirm Password</label>
                                 <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -179,6 +220,7 @@ const Registration = ({ setIsLoggedIn }) => {
                                     </button>
                                 </div>
                             </div>
+                            {confirmPasswordMessage && <div className="error-message" style={{ color: 'red', marginBottom: '1rem' }}>{confirmPasswordMessage}</div>}
                             <button type="submit" className="primary">
                                 Register
                             </button>
