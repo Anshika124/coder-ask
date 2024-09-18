@@ -18,6 +18,7 @@
 .tagContainer .rti--container {
   width: 100%;
   background: #1c212c;
+  border: none;
 }
 
 .tagContainer .rti--container .rti--tag{
