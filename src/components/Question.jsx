@@ -42,7 +42,7 @@ function Question({ question }) {
       } catch (e) {}
     };
     countvotes();
-  }, []);
+  }, []); 
 
   return (
     <NavLink

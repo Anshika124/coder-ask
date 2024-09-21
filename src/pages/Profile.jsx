@@ -16,6 +16,7 @@ import {
 import AnswerList from "../components/AnswerList";
 import { useNavigate } from "react-router-dom";
 import "../css/Profile.css";
+import userProfile from "../assets/icons/user.png";
 
 const socialMediaIcons = {
   linkedin: faLinkedin,
@@ -26,12 +27,22 @@ const socialMediaIcons = {
 const Profile = () => {
   const [profile, setProfile] = useState(null);
   const [typeClicked, setTypeClicked] = useState("question");
+  const [profileColor, setProfileColor] = useState(null);
 
   const Navigate = useNavigate();
 
   const handleButtonController = (buttonType) => {
     setTypeClicked(buttonType);
   };
+
+  const RandomColor = () => {
+    const colors = ['#ba503a', '#33FF57', '#3357FF', '#F1C40F', '#8E44AD','#4491ad','#418357','#837641','#674177','#81426e','#5f2f27','#81833c'];
+    const randomIndex = Math.floor(Math.random() * colors.length);
+    setProfileColor(colors[randomIndex]);
+  }
+  if(profileColor==null){
+    RandomColor();
+  }
 
   const renderProfileContent = () => {
     switch (typeClicked) {
@@ -81,11 +92,13 @@ const Profile = () => {
         <div className="column" style={{ textAlign: "center" }}>
           <div className="profile-sidebar">
             <div className="profile-info">
-              <div>
+              <div style={{backgroundColor:profileColor, borderRadius:'50%'}}>
                 <img
-                  src={profile.profilePicture || profileUrl}
+                  src={profile.profilePicture || userProfile}
                   alt="Profile"
                   className="profile-picture"
+                  height="40px"
+
                 />
               </div>
               <div className="profile-info-right">
