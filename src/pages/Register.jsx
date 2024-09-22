@@ -44,8 +44,8 @@ const Registration = ({ setIsLoggedIn }) => {
 
     const checkPasswordStrength = (password) => {
         // Validate in order of priority
-        if (password.length < 8) {
-            setMessage('Password must be at least 8 characters long.');
+        if (password.length < 7) {
+            setMessage('Password must be at least 7 characters long.');
             return false;
         }
         if (!/[A-Z]/.test(password)) {

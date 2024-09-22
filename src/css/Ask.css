@@ -33,6 +33,11 @@
   margin-bottom: 0 !important;
 }
 
+.ql-image {
+  display:none;
+  visibility: hidden;
+}
+
 
 
 .ql-container.ql-snow{

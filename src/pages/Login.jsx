@@ -67,7 +67,7 @@ const Login = ({setIsLoggedIn}) => {
         <main>
           <form onSubmit={handleLogin}>
             <div className="form-group">
-              <label htmlFor="email-username">Email or Username</label>
+              <label htmlFor="email-username">Email </label>
               <input
                 type="text"
                 id="email-username"
