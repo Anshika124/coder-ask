@@ -14,9 +14,10 @@ import {
   faTwitter,
 } from "@fortawesome/free-brands-svg-icons";
 import AnswerList from "../components/AnswerList";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "../css/Profile.css";
 import userProfile from "../assets/icons/user.png";
+import { getLocal } from '../controller/ProjectData';
 
 const socialMediaIcons = {
   linkedin: faLinkedin,
@@ -28,6 +29,9 @@ const Profile = () => {
   const [profile, setProfile] = useState(null);
   const [typeClicked, setTypeClicked] = useState("question");
   const [profileColor, setProfileColor] = useState(null);
+  const [loading, setLoading] = useState(null);
+  const {id} = useParams();
+  const local = getLocal();
 
   const Navigate = useNavigate();
 
@@ -67,22 +71,25 @@ const Profile = () => {
 
   const fetchProfile = useCallback(async () => {
     try {
-      const userId = JSON.parse(localStorage.getItem("userData"))._id;
+      // const userId = JSON.parse(localStorage.getItem("userData"))._id;
+      const userId = id;
+      setLoading(true);
       const response = await axios.post(`${localDBUrl}/users/getuser`, {
         userId,
       });
+      setLoading(false);
       // console.log(response);
       setProfile(response.data);
     } catch (error) {
       console.error("Error fetching profile data:", error);
     }
-  }, []);
+  }, [id]);
 
   useEffect(() => {
     fetchProfile();
   }, [fetchProfile]);
 
-  if (!profile) {
+  if (!profile || loading) {
     return <Loading />;
   }
 
@@ -144,12 +151,12 @@ const Profile = () => {
               >
                 Answers ({profile.answersList.length})
               </button>
-              <button
+              {local && (local._id == id) ? (<button
                 className="profile-buttons"
                 onClick={() => handleButtonController("bookmark")}
               >
-                Bookmarks ({profile.bookmarkedQuestions.length})
-              </button>
+                Bookmarks ({profile.bookmarkedQuestions.length})  
+              </button>):(<></>)}
               {/* <button
                 className="profile-buttons"
                 onClick={() => handleButtonController("note")}
@@ -157,20 +164,23 @@ const Profile = () => {
                 Notes
               </button> */}
               <div className="line"></div>
-              <div className="profile-action-buttons"> 
-                <button
-                  className="outline"
-                  onClick={() => handleButtonController("editProfile")}
-                >
-                  Edit Profile
-                </button>
-                <button
-                  className="outline contrast"
-                  onClick={() => handleButtonController("signout")}
-                >
-                  Sign Out
-                </button>
-              </div>
+              {local && local._id==id ? (<>
+                <div className="profile-action-buttons">
+                  <button
+                    className="outline"
+                    onClick={() => handleButtonController("editProfile")}
+                  >
+                    Edit Profile
+                  </button>
+                  <button
+                    className="outline contrast"
+                    onClick={() => handleButtonController("signout")}
+                  >
+                    Sign Out
+                  </button>
+                </div>
+              </>):(<></>)}
+              
             </div>
           </div>
         </div>

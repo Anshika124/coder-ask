@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import useWindowDimensions from './UseWindowDimensions';
 import '@picocss/pico/css/pico.min.css';
 import { logoUrl } from '../controller/URLManager';
@@ -57,7 +57,9 @@ const Header = ({ isLoggedIn }) => {
         <div style={{ flex: 2, display: 'flex', justifyContent: 'center', gap: '2rem' }}>
           {isLoggedIn ? (
             <>
-              <Link className='headerLinks' to="/profile" onClick={() => { setMenuOpen(width > 640) }}>Profile</Link>
+              {/* <Link className='headerLinks' to="/profile" onClick={() => { setMenuOpen(width > 640) }}>Profile</Link> */}
+              
+              <NavLink className='headerLinks' to={`/profile/${JSON.parse(localStorage.getItem("userData"))._id}`} onClick={() => { setMenuOpen(width > 640) }}>Profile</NavLink>
             </>
           ) : (
               <Link className='headerLinks' to="/login" onClick={() => { setMenuOpen(width > 640) }}>Login</Link>

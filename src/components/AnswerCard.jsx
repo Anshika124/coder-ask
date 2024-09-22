@@ -3,7 +3,7 @@ import axios from 'axios';
 import moment from 'moment/moment';
 import { localDBUrl } from '../controller/URLManager';
 import { getLocal } from '../controller/ProjectData';
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faEdit } from "@fortawesome/free-solid-svg-icons";
 
@@ -110,7 +110,7 @@ function AnswerCard({ answer, setLoading }) {
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
                 <div style={{ width: '82%' }}>
-                    <p style={{ color: 'grey' }}>{String(answer.answeredBy.userName)} • {moment(new Date(answer.answeredOn).toLocaleString()).fromNow()}</p>
+                    <p style={{ color: 'grey' }}><NavLink to={`/profile/${answer.answeredBy._id}`} style={{ color: 'grey', textDecoration: 'none' }}>{String(answer.answeredBy.userName)}</NavLink> • {moment(new Date(answer.answeredOn).toLocaleString()).fromNow()}</p>
 
                     {isAnswerEditable
                         ? <>

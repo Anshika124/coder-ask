@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 import parse from "html-react-parser";
 import moment from "moment/moment";
 import { localDBUrl } from "../controller/URLManager";
@@ -205,7 +205,7 @@ const QuestionInfo = () => {
         <div className="question-content" style={{ width: "100%" }}>
           <h1>{question.title}</h1>
           <p style={{ color: "grey" }}>
-            {String(question.postedBy.userName)} ● {" "}
+            <NavLink to={`/profile/${question.postedBy._id}`} style={{color:'grey', textDecoration:'none'}}>{String(question.postedBy.userName)}</NavLink> ● {" "}
             {moment(new Date(question.postedOn)).fromNow()}
           </p>
           <p style={{ wordBreak: 'break-all' }}>

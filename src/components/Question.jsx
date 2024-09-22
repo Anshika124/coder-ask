@@ -56,7 +56,7 @@ function Question({ question }) {
           background: "#1a1f27",
           borderRadius: "10px",
           marginBottom: "15px",
-        }}
+        }} 
       >
         <h3>{question.title}</h3>
         <div style={{ marginBottom: "10px" }}>
@@ -80,7 +80,7 @@ function Question({ question }) {
           })}
         </div>
         <p style={{ color: "grey" }}>
-          {String(question.postedBy.userName)} •{" "}
+          {String(question.postedBy.userName)} • {" "}
           {moment(new Date(question.postedOn)).fromNow()}
         </p>
         <div style={{ color: "#c2c7d0" }}> {desc}</div>
