@@ -12,7 +12,8 @@ import Profile from './pages/Profile';
 import QuestionInfo from './pages/QuestionInfo';
 import EditAsk from './pages/EditAsk';
 import Search from './pages/Search';
-import { githubDomain } from './controller/URLManager';
+import { githubDomain, localDBUrl } from './controller/URLManager';
+import axios from 'axios';
 
 
 function App() {
@@ -25,12 +26,30 @@ function App() {
 
 
   useEffect(() => {
-    
-    if (localStorage.getItem("userData") && localStorage.getItem("userData") !== '{}')
-      {
-        setIsLoggedIn(true);
+    const checkUser = async () => {
+      console.log("Checking")
+      if (localStorage.getItem("userData") && localStorage.getItem("userData") !== '{}') {
+        const local = JSON.parse(localStorage.getItem("userData"))
+        try {
+          let res = await axios.post(localDBUrl + "/users/login", {
+            email: local.email,
+            password: local.password
+          });
+          console.log(res.data.message)
+          if (res.data.success) {
+            setIsLoggedIn(true);
+          } else {
+            localStorage.removeItem('userData');
+            setIsLoggedIn(false);
+          }
+        } catch (error) {
+          console.error(error);
+        }
       }
-  },[isLoggedIn])
+    }
+
+    checkUser();
+  },[])
   
   return (
     <div >
