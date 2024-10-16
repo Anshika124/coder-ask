@@ -71,11 +71,13 @@ function AnswerCard({ answer, setLoading }) {
         }
     };
 
-    useEffect(() => {
+    useEffect(() => { 
         const fetchAnswerData = () => {
             let upvoteCountList = answer.upvotesList.filter(upvotes => upvotes.isUpvote);
             let downvoteCountList = answer.upvotesList.filter(downvotes => !downvotes.isUpvote);
             setUpvotes(upvoteCountList.length - downvoteCountList.length);
+
+           
 
             let userId = local !== null ? local._id : null;
             let upd = answer.upvotesList.filter(user => user.userId === userId);
@@ -89,6 +91,7 @@ function AnswerCard({ answer, setLoading }) {
             }
         };
         fetchAnswerData();
+        
     }, [answer]);
     return (
         <div key={answer._id} style={{
@@ -125,7 +128,7 @@ function AnswerCard({ answer, setLoading }) {
                         </>
                         : <p>{description}</p>}
                 </div>
-                {answer.answeredBy._id === local._id && (
+                {local && answer.answeredBy._id === local._id && (
                     <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
                         <button className="padding-btn-normal" style={{ background:'#034403', border:'none'}} onClick={() => setAnswerEditable(true)}><FontAwesomeIcon icon={faEdit} /></button>
                         <button className="padding-btn-normal" style={{

@@ -208,9 +208,9 @@ const QuestionInfo = () => {
             <NavLink to={`/profile/${question.postedBy._id}`} style={{color:'grey', textDecoration:'none'}}>{String(question.postedBy.userName)}</NavLink> ● {" "}
             {moment(new Date(question.postedOn)).fromNow()}
           </p>
-          <p style={{ wordBreak: 'break-all' }}>
+          <div style={{ wordBreak: 'break-all' }}>
             {parse(question.description)}
-          </p>
+          </div>
           {question.tags.length > 0 && (
             <div style={{ marginBottom: "10px" }}>
               {question.tags.map((tag, index) => {
@@ -276,7 +276,7 @@ const QuestionInfo = () => {
       </div>
       <div style={{ display: "flex", flexDirection: "column", marginTop: '20px' }}>
         {question.answersList.length > 0 ? (
-          question.answersList.map((answer) => <AnswerCard answer={answer} setLoading={setLoading} />)
+          question.answersList.map((answer,id) => <AnswerCard answer={answer} key={id} setLoading={setLoading} />)
         ) : (
           <p>Not answered yet.</p>
         )}
