@@ -1,70 +1,59 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Bugsolved
 
-## Available Scripts
+**Bugsolved** is a collaborative Q&A website designed for developers and beginners to ask programming-related questions, provide answers, and engage with the community through upvotes, downvotes, and bookmarking options.
 
-In the project directory, you can run:
+![Screenshot 2024-10-24 211141](https://github.com/user-attachments/assets/0dcb2627-65f6-4ecd-85df-c64d8d7fcbdd)
 
-### `npm start`
+![Screenshot 2024-10-24 211520](https://github.com/user-attachments/assets/b1121acd-367f-458a-a0bd-e7614ff33d45)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+![Screenshot 2024-10-24 211550](https://github.com/user-attachments/assets/66e38794-0fe9-4c00-871c-804f645d53c3)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Features
 
-### `npm test`
+- **Post Questions**: Users can post programming-related questions.
+- **Provide Answers**: Share solutions and help the community by answering questions.
+- **Upvote & Downvote**: Engage by voting on questions and answers.
+- **User Profiles**: Access personal profiles to view posts, answers, and bookmarked questions.
+- **Bookmarking**: Save questions for future reference.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Technologies Used
 
-### `npm run build`
+- **Frontend**: React.js, Pico CSS 
+- **Backend**: Node.js, Express.js, MongoDB
+- **HTTP Requests**: Axios for efficient API handling
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Getting Started
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Prerequisites
+- [Node.js](https://nodejs.org/)
+- [MongoDB](https://www.mongodb.com/)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Installation
 
-### `npm run eject`
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/anshika124/Bugsolved.git
+   ```
+2. **Navigate to the project directory**:
+   ```bash
+   cd Bugsolved
+   ```
+3. **Install dependencies** for `client` :
+   ```bash
+   cd client && npm install
+   ```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Usage
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- **Register/Login** to access all features.
+- **Ask questions** by navigating to the question section.
+- **Engage with the community** by upvoting and downvoting posts and answers.
+- **Bookmark** questions to keep track of important information.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Contributing
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Contributions are welcome! Please fork the repository and create a pull request.
 
-## Learn More
+---
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
